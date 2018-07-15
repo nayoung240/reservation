@@ -15,6 +15,5 @@ public class ReservationDaoSqls {
 	
 	//display_info
 	public static final String PLACE="select place_name from display_info where product_id=:product_id";
-	
-
+	public static final String DISPLAY_INFO="select * from display_info where product_id=:product_id";
 }

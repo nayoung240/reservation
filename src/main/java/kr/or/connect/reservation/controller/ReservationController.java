@@ -18,34 +18,38 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kr.or.connect.reservation.dto.Category;
 import kr.or.connect.reservation.dto.Product;
 import kr.or.connect.reservation.dto.Promotion;
-import kr.or.connect.reservation.service.ReservationService;
+import kr.or.connect.reservation.service.CategoryService;
+import kr.or.connect.reservation.service.DisplayInfoService;
+import kr.or.connect.reservation.service.ProductService;
 
 
 @Controller
 public class ReservationController {
 	@Autowired
-	ReservationService rs;
+	CategoryService cateS;
+	ProductService prodS;
+	DisplayInfoService dispS;
 	
 	@GetMapping(path="/main")
 	public String main(	@RequestParam(name="category_id", required=false, defaultValue="1") int category_id, 
 					@RequestParam(name="start", required=false, defaultValue="0") int start,
 					ModelMap mm) {
-		List<Category> categoryList=rs.getCategories();
-		List<Product> productList=rs.getProducts();                                                                                             
-		List<Promotion> promotionList=rs.getPromotions();
+		List<Category> categoryList=cateS.getCategories();
+		List<Product> productList=prodS.getProducts();                                                                                             
+		//List<Promotion> promotionList=rs.getPromotions();
 		
-		int allCnt=rs.getAllCount();
+		int allCnt=prodS.getAllCount();
 		
 		//페이징
-		List<Product> list=rs.getProduct(category_id, start);
-		int cnt=rs.getCateCount(category_id);  
-		int pageCnt=cnt/ReservationService.LIMIT;
-		if(cnt%ReservationService.LIMIT>0) {
+		List<Product> list=prodS.getProduct(category_id, start);
+		int cnt=prodS.getCateCount(category_id);  
+		int pageCnt=cnt/ProductService.LIMIT;
+		if(cnt%ProductService.LIMIT>0) {
 			pageCnt++;
 		}
 		List<Integer> pageStartList=new ArrayList<>();
 		for(int i=0; i<pageCnt; i++) {
-			pageStartList.add(i*ReservationService.LIMIT);
+			pageStartList.add(i*ProductService.LIMIT);
 		}
 		
 		mm.addAttribute("categoryList", categoryList);
