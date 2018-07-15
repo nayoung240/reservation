@@ -15,9 +15,9 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 	DisplayInfoDao dispdao;
 	
 	@Override
-	public List<DisplayInfo> getDisplayInfos() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<DisplayInfo> getDisplayInfos(Integer product_id) {
+		List<DisplayInfo> list=dispdao.displayInfoList(product_id);
+		return list;
 	}
 
 }

@@ -19,7 +19,10 @@
 	                   content:  ${cateList.content}<br>
 	                   ----------------------------<br>
                 </c:forEach>
-
+<%--                 <c:forEach var="dispList" items="${displayList}">
+	                   place name: ${dispList.place_name}<br>
+	                   ----------------------------<br>
+                </c:forEach> --%>
                 
 <%--                                  <c:forEach var="prodList" items="${productList}">
 	                <li>

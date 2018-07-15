@@ -8,5 +8,5 @@ import kr.or.connect.reservation.dto.DisplayInfo;
 
 @Service
 public interface DisplayInfoService {
-	public List<DisplayInfo> getDisplayInfos();
+	public List<DisplayInfo> getDisplayInfos(Integer product_id);
 }

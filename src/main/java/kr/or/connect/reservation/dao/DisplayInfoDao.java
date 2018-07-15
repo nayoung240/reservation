@@ -2,7 +2,9 @@ package kr.or.connect.reservation.dao;
 
 import static kr.or.connect.reservation.dao.ReservationDaoSqls.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -28,8 +30,10 @@ public class DisplayInfoDao {
 	}
 	
 	private RowMapper<DisplayInfo> display=BeanPropertyRowMapper.newInstance(DisplayInfo.class);
-	public List<DisplayInfo> displayInfoList(){
-		return jdbc.query(DISPLAY_INFO, display);
+	public List<DisplayInfo> displayInfoList(Integer product_id){
+		Map<String, Integer> params=new HashMap<>();
+		params.put("product_id", product_id);
+		return jdbc.query(DISPLAY_INFO, params, display);
 	}
 	
 	

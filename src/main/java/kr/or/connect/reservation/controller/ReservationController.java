@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.connect.reservation.dto.Category;
+import kr.or.connect.reservation.dto.DisplayInfo;
 import kr.or.connect.reservation.dto.Product;
 import kr.or.connect.reservation.dto.Promotion;
 import kr.or.connect.reservation.service.CategoryService;
@@ -34,8 +35,10 @@ public class ReservationController {
 	public String main(	@RequestParam(name="category_id", required=false, defaultValue="1") int category_id, 
 					@RequestParam(name="start", required=false, defaultValue="0") int start,
 					ModelMap mm) {
+		
 		List<Category> categoryList=cateS.getCategories();
-		List<Product> productList=prodS.getProducts();                                                                                             
+		//List<Product> productList=prodS.getProducts();                                                                                             
+		//List<DisplayInfo> displayList=dispS.getDisplayInfos(product_id);
 		//List<Promotion> promotionList=rs.getPromotions();
 		
 		int allCnt=prodS.getAllCount();
@@ -66,6 +69,7 @@ public class ReservationController {
 		mm.addAttribute("count", cnt);
 		mm.addAttribute("pageStartList", pageStartList);
 		
+		//mm.addAttribute("displayList", displayList);
 		return "main";
 	}
 }
