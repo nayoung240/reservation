@@ -28,7 +28,9 @@ import kr.or.connect.reservation.service.ProductService;
 public class ReservationController {
 	@Autowired
 	CategoryService cateS;
+	@Autowired
 	ProductService prodS;
+	@Autowired
 	DisplayInfoService dispS;
 	
 	@GetMapping(path="/main")
@@ -38,8 +40,7 @@ public class ReservationController {
 		
 		List<Category> categoryList=cateS.getCategories();
 		//List<Product> productList=prodS.getProducts();                                                                                             
-		//List<DisplayInfo> displayList=dispS.getDisplayInfos(product_id);
-		//List<Promotion> promotionList=rs.getPromotions();
+		List<DisplayInfo> displayList=dispS.getDisplayInfos(category_id, start);
 		
 		int allCnt=prodS.getAllCount();
 		
@@ -69,7 +70,7 @@ public class ReservationController {
 		mm.addAttribute("count", cnt);
 		mm.addAttribute("pageStartList", pageStartList);
 		
-		//mm.addAttribute("displayList", displayList);
+		mm.addAttribute("displayList", displayList);
 		return "main";
 	}
 }

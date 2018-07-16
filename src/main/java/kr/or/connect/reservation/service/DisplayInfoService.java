@@ -8,5 +8,6 @@ import kr.or.connect.reservation.dto.DisplayInfo;
 
 @Service
 public interface DisplayInfoService {
-	public List<DisplayInfo> getDisplayInfos(Integer product_id);
+	public static final Integer LIMIT=4;
+	public List<DisplayInfo> getDisplayInfos(Integer product_id, Integer start);
 }

@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class DisplayInfo {
 	private int id;
-	private int product_id;
+	private int category_id;
 	private String opening_name;
 	private String place_name;
 	private String place_lot;
@@ -20,11 +20,11 @@ public class DisplayInfo {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getProduct_id() {
-		return product_id;
+	public int getcategory_id() {
+		return category_id;
 	}
-	public void setProduct_id(int product_id) {
-		this.product_id = product_id;
+	public void setcategory_id(int category_id) {
+		this.category_id = category_id;
 	}
 	public String getOpening_name() {
 		return opening_name;
@@ -82,7 +82,7 @@ public class DisplayInfo {
 	}
 	@Override
 	public String toString() {
-		return "DisplayInfo [id=" + id + ", product_id=" + product_id + ", opening_name=" + opening_name
+		return "DisplayInfo [id=" + id + ", category_id=" + category_id + ", opening_name=" + opening_name
 				+ ", place_name=" + place_name + ", place_lot=" + place_lot + ", place_street=" + place_street
 				+ ", tel=" + tel + ", homepage=" + homepage + ", email=" + email + ", create_date=" + create_date
 				+ ", modify_date=" + modify_date + "]";

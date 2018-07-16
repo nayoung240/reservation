@@ -15,8 +15,8 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 	DisplayInfoDao dispdao;
 	
 	@Override
-	public List<DisplayInfo> getDisplayInfos(Integer product_id) {
-		List<DisplayInfo> list=dispdao.displayInfoList(product_id);
+	public List<DisplayInfo> getDisplayInfos(Integer product_id, Integer start) {
+		List<DisplayInfo> list=dispdao.displayInfoList(product_id, start, LIMIT);
 		return list;
 	}
 

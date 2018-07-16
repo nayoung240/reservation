@@ -17,12 +17,12 @@
                 		 <%-- <li>cateList: ${cateList}</li> --%>
 	                   descript: ${cateList.description}<br>
 	                   content:  ${cateList.content}<br>
+	                <c:forEach var="dispList" items="${displayList}">
+	                   place name: ${dispList.place_name}<br>
+                	</c:forEach> 
 	                   ----------------------------<br>
                 </c:forEach>
-<%--                 <c:forEach var="dispList" items="${displayList}">
-	                   place name: ${dispList.place_name}<br>
-	                   ----------------------------<br>
-                </c:forEach> --%>
+
                 
 <%--                                  <c:forEach var="prodList" items="${productList}">
 	                <li>

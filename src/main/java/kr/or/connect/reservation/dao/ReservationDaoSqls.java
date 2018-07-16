@@ -11,9 +11,9 @@ public class ReservationDaoSqls {
 	public static final String PAGING="select content, description from product where category_id= :category_id order by id desc limit :start, :limit";
 	
 	//promotion
-	public static final String PROMOTION_ALL="select id, product_id from promotion";
+	public static final String PROMOTION_ALL="select id, category_id from promotion";
 	
 	//display_info
-	public static final String PLACE="select place_name from display_info where product_id=:product_id";
-	public static final String DISPLAY_INFO="select * from display_info where product_id=:product_id";
+	public static final String PLACE="select place_name from display_info where category_id=:category_id";
+	public static final String DISPLAY_INFO="select place_name from display_info where product_id= :product_id order by id desc limit :start, :limit";
 }
