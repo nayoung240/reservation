@@ -30,12 +30,9 @@ public class DisplayInfoDao {
 	}
 	
 	private RowMapper<DisplayInfo> display=BeanPropertyRowMapper.newInstance(DisplayInfo.class);
-	public List<DisplayInfo> displayInfoList(Integer product_id, Integer start, Integer limit){
-		Map<String, Integer> params=new HashMap<>();
-		params.put("product_id", product_id);
-		params.put("start", start);
-		params.put("limit", limit);
-		return jdbc.query(DISPLAY_INFO, params, display);
+	
+	public List<DisplayInfo> displayInfoList(){
+		return jdbc.query(DISPLAY_INFO, display);
 	}
 	
 	

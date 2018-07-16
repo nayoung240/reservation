@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import kr.or.connect.reservation.dto.DisplayInfo;
+import kr.or.connect.reservation.dto.Product;
 
 @Service
 public interface DisplayInfoService {
-	public static final Integer LIMIT=4;
-	public List<DisplayInfo> getDisplayInfos(Integer product_id, Integer start);
+	public List<DisplayInfo> getDisplayInfos();
 }

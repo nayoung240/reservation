@@ -34,19 +34,24 @@ public class ReservationController {
 	DisplayInfoService dispS;
 	
 	@GetMapping(path="/main")
-	public String main(	@RequestParam(name="category_id", required=false, defaultValue="1") int category_id, 
+	public String main(	@RequestParam(name="category_id", required=false, defaultValue="1") int category_id,
+						@RequestParam(name="product_id", required=false, defaultValue="1") int product_id,
 					@RequestParam(name="start", required=false, defaultValue="0") int start,
 					ModelMap mm) {
 		
 		List<Category> categoryList=cateS.getCategories();
-		//List<Product> productList=prodS.getProducts();                                                                                             
-		List<DisplayInfo> displayList=dispS.getDisplayInfos(category_id, start);
+		
+		List<Product> productList=prodS.getProducts();                                                                                             
+		List<Product> pagingList=prodS.getProduct(category_id, start);
+		
+		List<DisplayInfo> displayList=dispS.getDisplayInfos();
 		
 		int allCnt=prodS.getAllCount();
 		
-		//페이징
-		List<Product> list=prodS.getProduct(category_id, start);
-		int cnt=prodS.getCateCount(category_id);  
+
+
+		//페이징 번호
+/*		int cnt=prodS.getCateCount(category_id);  
 		int pageCnt=cnt/ProductService.LIMIT;
 		if(cnt%ProductService.LIMIT>0) {
 			pageCnt++;
@@ -54,21 +59,18 @@ public class ReservationController {
 		List<Integer> pageStartList=new ArrayList<>();
 		for(int i=0; i<pageCnt; i++) {
 			pageStartList.add(i*ProductService.LIMIT);
-		}
+		}*/
 		
 		mm.addAttribute("categoryList", categoryList);
-		
-		//mm.addAttribute("allCount", allCount);
-		//mm.addAttribute("cateCount", cateCount);
 
-/*		mm.addAttribute("productList", productList);
-		mm.addAttribute("promotionList", promotionList);
-*/		
+		mm.addAttribute("productList", productList);
+
+		//	mm.addAttribute("promotionList", promotionList);
 		
 		mm.addAttribute("allCount", allCnt);
-		mm.addAttribute("list", list);
-		mm.addAttribute("count", cnt);
-		mm.addAttribute("pageStartList", pageStartList);
+		mm.addAttribute("pagingList", pagingList);
+/*		mm.addAttribute("count", cnt);
+		mm.addAttribute("pageStartList", pageStartList);*/
 		
 		mm.addAttribute("displayList", displayList);
 		return "main";

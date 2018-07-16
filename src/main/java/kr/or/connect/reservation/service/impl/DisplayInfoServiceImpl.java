@@ -13,10 +13,10 @@ import kr.or.connect.reservation.service.DisplayInfoService;
 public class DisplayInfoServiceImpl implements DisplayInfoService {
 	@Autowired
 	DisplayInfoDao dispdao;
-	
+
 	@Override
-	public List<DisplayInfo> getDisplayInfos(Integer product_id, Integer start) {
-		List<DisplayInfo> list=dispdao.displayInfoList(product_id, start, LIMIT);
+	public List<DisplayInfo> getDisplayInfos() {
+		List<DisplayInfo> list=dispdao.displayInfoList();
 		return list;
 	}
 
