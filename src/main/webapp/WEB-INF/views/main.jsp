@@ -52,34 +52,15 @@
                     <li class="item" data-category="0">
                         <a class="anchor active"> <span>전체리스트</span> </a>
                     </li>
-                    <li class="item" data-category="1">
-                        <a class="anchor"> <span>전시</span> </a>
-                    </li>
-                    <li class="item" data-category="2">
-                        <a class="anchor"> <span>뮤지컬</span> </a>
-                    </li>
-                    <li class="item" data-category="3">
-                        <a class="anchor"> <span>콘서트</span> </a>
-                    </li>
-                    <li class="item" data-category="4">
-                        <a class="anchor"> <span>클래식</span> </a>
-                    </li>
-                    <li class="item" data-category="5">
-                        <a class="anchor"> <span>연극</span> </a>
-                    </li>
-                    <!-- li class="item" data-category="7">
-                        <a class="anchor"> <span>클래스</span> </a>
-                    </li>
-                    <li class="item" data-category="8">
-                        <a class="anchor"> <span>체험</span> </a>
-                    </li>
-                    <li class="item" data-category="9">
-                        <a class="anchor last"> <span>키즈</span> </a>
-                    </li -->
+                    <c:forEach var="cateList" items="${categoryList}">
+	                	<li class="item" data-category="${cateList.id}">
+                        	<a class="anchor"> <span>${cateList.name}</span> </a>
+                    	</li>    
+                	</c:forEach> 
                 </ul>
             </div>
             <div class="section_event_lst">
-                <p class="event_lst_txt">바로 예매 가능한 행사가 <span class="pink">10개</span> 있습니다</p>
+                <p class="event_lst_txt">바로 예매 가능한 행사가 <span class="pink">${allCount}개</span> 있습니다</p>
                 <div class="wrap_event_box">
                     <!-- [D] lst_event_box 가 2컬럼으로 좌우로 나뉨, 더보기를 클릭할때마다 좌우 ul에 li가 추가됨 -->
                     <ul class="lst_event_box">
@@ -139,7 +120,7 @@
             </div>
         </div>
     </div>
-                     <c:forEach var="cateList" items="${categoryList}">
+                <c:forEach var="cateList" items="${categoryList}">
 	                    <strong>${cateList.name}</strong><br>
                 </c:forEach> 
                 바로 예매 가능한 전시, 공연, 행사가 ${allCount }개 있습니다 <br>
