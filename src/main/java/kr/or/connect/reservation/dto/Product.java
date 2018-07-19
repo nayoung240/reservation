@@ -10,6 +10,24 @@ public class Product {
 	private String event;
 	private Date createDate;
 	private Date modifyDate;
+	
+/*	private String placeName;
+	private int productId;
+	
+	public String getPlaceName() {
+		return placeName;
+	}
+	public void setPlaceName(String placeName) {
+		this.placeName = placeName;
+	}
+	
+	public int getProductId() {
+		return productId;
+	}
+	public void setProductId(int productId) {
+		this.productId = productId;
+	}*/
+
 	public int getId() {
 		return id;
 	}
@@ -55,6 +73,6 @@ public class Product {
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", categoryId=" + categoryId + ", description=" + description + ", content="
-				+ content + ", event=" + event + ", createDate=" + createDate + ", modifyDate=" + modifyDate + "]";
+				+ content + ", event=" + event + ", createDate=" + createDate + ", modifyDate=" + "modifyDate]";
 	}
 }

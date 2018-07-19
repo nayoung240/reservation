@@ -34,15 +34,16 @@ public class ReservationController {
 	DisplayInfoService dispS;
 	
 	@GetMapping(path="/main")
-	public String main(	@RequestParam(name="category_id", required=false, defaultValue="1") int category_id,
-						@RequestParam(name="product_id", required=false, defaultValue="1") int product_id,
+	public String main(	@RequestParam(name="categoryId", required=false, defaultValue="1") int categoryId,
+						@RequestParam(name="productId", required=false, defaultValue="1") int productId,
 					@RequestParam(name="start", required=false, defaultValue="0") int start,
 					ModelMap mm) {
 		
 		List<Category> categoryList=cateS.getCategories();
 		
-		List<Product> productList=prodS.getProducts();                                                                                             
-		List<Product> pagingList=prodS.getProduct(category_id, start);
+		List<Product> productAllList=prodS.getAllProducts(start);                                                                                             
+		//List<Product> productAllList=prodS.getAllProducts();                     
+		List<Product> pagingList=prodS.getProduct(categoryId, start);
 		
 		List<DisplayInfo> displayList=dispS.getDisplayInfos();
 		
@@ -51,7 +52,7 @@ public class ReservationController {
 
 
 		//페이징 번호
-/*		int cnt=prodS.getCateCount(category_id);  
+/*		int cnt=prodS.getCateCount(categoryId);  
 		int pageCnt=cnt/ProductService.LIMIT;
 		if(cnt%ProductService.LIMIT>0) {
 			pageCnt++;
@@ -63,7 +64,7 @@ public class ReservationController {
 		
 		mm.addAttribute("categoryList", categoryList);
 
-		mm.addAttribute("productList", productList);
+		mm.addAttribute("prodAllList", productAllList);
 
 		//	mm.addAttribute("promotionList", promotionList);
 		
