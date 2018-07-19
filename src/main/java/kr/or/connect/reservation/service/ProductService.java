@@ -9,8 +9,9 @@ import kr.or.connect.reservation.dto.Product;
 @Service
 public interface ProductService {
 	public static final Integer LIMIT=4;
-	public List<Product> getProducts();
+	public List<Product> getAllProducts(Integer start);
+	//public List<Product> getAllProducts();
 	public int getAllCount();
-	public int getCateCount(Integer category_id);
-	public List<Product> getProduct(Integer category_id, Integer start);
+	public int getCateCount(Integer categoryId);
+	public List<Product> getProduct(Integer categoryId, Integer start);
 }

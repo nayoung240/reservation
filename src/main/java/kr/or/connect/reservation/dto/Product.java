@@ -4,23 +4,23 @@ import java.util.Date;
 
 public class Product {
 	private int id;
-	private int category_id;
+	private int categoryId;
 	private String description;
 	private String content;
 	private String event;
-	private Date create_date;
-	private Date modify_date;
+	private Date createDate;
+	private Date modifyDate;
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getcategory_id() {
-		return category_id;
+	public int getCategoryId() {
+		return categoryId;
 	}
-	public void setcategory_id(int category_id) {
-		this.category_id = category_id;
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
 	}
 	public String getDescription() {
 		return description;
@@ -40,21 +40,21 @@ public class Product {
 	public void setEvent(String event) {
 		this.event = event;
 	}
-	public Date getCreate_date() {
-		return create_date;
+	public Date getCreateDate() {
+		return createDate;
 	}
-	public void setCreate_date(Date create_date) {
-		this.create_date = create_date;
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
-	public Date getModify_date() {
-		return modify_date;
+	public Date getModifyDate() {
+		return modifyDate;
 	}
-	public void setModify_date(Date modify_date) {
-		this.modify_date = modify_date;
+	public void setModifyDate(Date modifyDate) {
+		this.modifyDate = modifyDate;
 	}
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", category_id=" + category_id + ", description=" + description + ", content="
-				+ content + ", event=" + event + ", create_date=" + create_date + ", modify_date=" + modify_date + "]";
+		return "Product [id=" + id + ", categoryId=" + categoryId + ", description=" + description + ", content="
+				+ content + ", event=" + event + ", createDate=" + createDate + ", modifyDate=" + modifyDate + "]";
 	}
 }

@@ -6,9 +6,10 @@ public class ReservationDaoSqls {
 	
 	//product
 	public static final String ALL_COUNT="select count(*) from product";
-	public static final String CATE_COUNT="select count(*) from product where category_id=:category_id";
-	public static final String PRODUCT_ALL="select id, category_id, description, content, event, create_date, modify_date from product";
-	public static final String PAGING="select id, content, description from product where category_id= :category_id order by id desc limit :start, :limit";
+	public static final String CATE_COUNT="select count(*) from product where category_id= :categoryId";
+	public static final String PRODUCT_ALL="select id, categoryId, description, content, event, create_date, modify_date from product";
+	public static final String PRODUCT_ALL_ORIGIN="select id, category_id, description, content, event, create_date, modify_date from product limit :start, :limit";
+	public static final String PAGING="select id, content, description from product where category_id= :categoryId order by id desc limit :start, :limit";
 	
 	//promotion
 	public static final String PROMOTION_ALL="select id, category_id from promotion";

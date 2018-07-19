@@ -4,27 +4,27 @@ import java.util.Date;
 
 public class DisplayInfo {
 	private int id;
-	private int product_id;
+	private int productId;
 	private String opening_hours;
-	private String place_name;
-	private String place_lot;
-	private String place_street;
+	private String placeName;
+	private String placeLot;
+	private String placeStreet;
 	private String tel;
 	private String homepage;
 	private String email;
-	private Date create_date;
-	private Date modify_date;
+	private Date createDate;
+	private Date modifyDate;
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getproduct_id() {
-		return product_id;
+	public int getProductId() {
+		return productId;
 	}
-	public void setproduct_id(int product_id) {
-		this.product_id = product_id;
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
 	public String getOpening_hours() {
 		return opening_hours;
@@ -32,23 +32,23 @@ public class DisplayInfo {
 	public void setOpening_hours(String opening_hours) {
 		this.opening_hours = opening_hours;
 	}
-	public String getPlace_name() {
-		return place_name;
+	public String getPlaceName() {
+		return placeName;
 	}
-	public void setPlace_name(String place_name) {
-		this.place_name = place_name;
+	public void setPlaceName(String placeName) {
+		this.placeName = placeName;
 	}
-	public String getPlace_lot() {
-		return place_lot;
+	public String getPlaceLot() {
+		return placeLot;
 	}
-	public void setPlace_lot(String place_lot) {
-		this.place_lot = place_lot;
+	public void setPlaceLot(String placeLot) {
+		this.placeLot = placeLot;
 	}
-	public String getPlace_street() {
-		return place_street;
+	public String getPlaceStreet() {
+		return placeStreet;
 	}
-	public void setPlace_street(String place_street) {
-		this.place_street = place_street;
+	public void setPlaceStreet(String placeStreet) {
+		this.placeStreet = placeStreet;
 	}
 	public String getTel() {
 		return tel;
@@ -68,24 +68,24 @@ public class DisplayInfo {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Date getCreate_date() {
-		return create_date;
+	public Date getCreateDate() {
+		return createDate;
 	}
-	public void setCreate_date(Date create_date) {
-		this.create_date = create_date;
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
-	public Date getModify_date() {
-		return modify_date;
+	public Date getModifyDate() {
+		return modifyDate;
 	}
-	public void setModify_date(Date modify_date) {
-		this.modify_date = modify_date;
+	public void setModifyDate(Date modifyDate) {
+		this.modifyDate = modifyDate;
 	}
 	@Override
 	public String toString() {
-		return "DisplayInfo [id=" + id + ", product_id=" + product_id + ", opening_hours=" + opening_hours
-				+ ", place_name=" + place_name + ", place_lot=" + place_lot + ", place_street=" + place_street
-				+ ", tel=" + tel + ", homepage=" + homepage + ", email=" + email + ", create_date=" + create_date
-				+ ", modify_date=" + modify_date + "]";
+		return "DisplayInfo [id=" + id + ", productId=" + productId + ", opening_hours=" + opening_hours
+				+ ", placeName=" + placeName + ", placeLot=" + placeLot + ", placeStreet=" + placeStreet
+				+ ", tel=" + tel + ", homepage=" + homepage + ", email=" + email + ", createDate=" + createDate
+				+ ", modifyDate=" + modifyDate + "]";
 	}
 	
 }

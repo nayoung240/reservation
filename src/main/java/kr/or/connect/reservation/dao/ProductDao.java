@@ -30,23 +30,31 @@ public class ProductDao {
 	}
 	
 	private RowMapper<Product> product=BeanPropertyRowMapper.newInstance(Product.class);
-	public List<Product> productList(){
-		return jdbc.query(PRODUCT_ALL, product);
+
+	public List<Product> prodAllList(Integer start, Integer limit){
+		Map<String, Integer> params=new HashMap<>();
+		params.put("start", start);
+		params.put("limit", limit);
+		return jdbc.query(PRODUCT_ALL_ORIGIN, params, product);
 	}
 	
+/*	public List<Product> prodAllList(){
+		return jdbc.query(PRODUCT_ALL, product);
+	}
+*/	
 	public int allCount() {
 		return jdbc.queryForObject(ALL_COUNT, Collections.emptyMap(), Integer.class);
 	}
 	
-	public int cateCount(Integer category_id) {
+	public int cateCount(Integer categoryId) {
 		Map<String, Integer> params=new HashMap<>();
-		params.put("category_id", category_id);
+		params.put("categoryId", categoryId);
 		return jdbc.queryForObject(CATE_COUNT, params, Integer.class);
 	}
 	
-	public List<Product> prodInfo(Integer category_id, Integer start, Integer limit){
+	public List<Product> prodInfo(Integer categoryId, Integer start, Integer limit){
 		Map<String, Integer> params=new HashMap<>();
-		params.put("category_id", category_id);
+		params.put("categoryId", categoryId);
 		params.put("start", start);
 		params.put("limit", limit);
 		return jdbc.query(PAGING, params, product);

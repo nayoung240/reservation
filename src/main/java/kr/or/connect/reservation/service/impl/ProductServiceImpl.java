@@ -16,25 +16,31 @@ public class ProductServiceImpl implements ProductService {
 	ProductDao proddao;
 	
 	@Override
-	public List<Product> getProducts() {
-		List<Product> list=proddao.productList();
+	public List<Product> getAllProducts(Integer start) {
+		List<Product> list=proddao.prodAllList(start, LIMIT);
 		return list;
 	}
 
+	/*@Override
+	public List<Product> getAllProducts() {
+		List<Product> list=proddao.prodAllList();
+		return list;
+	}*/
+	
 	@Override
 	public int getAllCount() {
 		return proddao.allCount();
 	}
 
 	@Override
-	public int getCateCount(Integer category_id) {
-		return proddao.cateCount(category_id);
+	public int getCateCount(Integer categoryId) {
+		return proddao.cateCount(categoryId);
 	}
 
 	@Override
 	@Transactional
-	public List<Product> getProduct(Integer category_id, Integer start) {
-		List<Product> list=proddao.prodInfo(category_id, start, LIMIT);
+	public List<Product> getProduct(Integer categoryId, Integer start) {
+		List<Product> list=proddao.prodInfo(categoryId, start, LIMIT);
 		return list;
 	}
 
