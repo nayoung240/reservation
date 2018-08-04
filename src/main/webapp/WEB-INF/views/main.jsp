@@ -41,6 +41,7 @@
                             <div class="container_visual">
                                 <!-- [D] 이전,다음 버튼을 클릭할때마다 캐러셀 형태로 순환 됨 -->
                                 <ul class="visual_img">
+
                                 </ul>
                             </div>
                             <span class="nxt_fix" style="display:none;"></span>
@@ -61,52 +62,40 @@
                 </ul>
             </div>
             <div class="section_event_lst">
-                <p class="event_lst_txt">바로 예매 가능한 행사가 <span class="pink">${allCount} ${fn:length(pagingList)} 개</span> 있습니다</p>
+                <p class="event_lst_txt">바로 예매 가능한 행사가 <span class="pink">${allCnt}개</span> 있습니다</p>
                 <div class="wrap_event_box">
                     <!-- [D] lst_event_box 가 2컬럼으로 좌우로 나뉨, 더보기를 클릭할때마다 좌우 ul에 li가 추가됨 -->
                     <ul class="lst_event_box" id="leftUl">
-                       <c:forEach var="prodAllList" items="${prodAllList}" begin="0" end="1" step="1">
+                       <c:forEach var="allList" items="${allProdList}" begin="0" end="1" step="1">
 		                   <li class="item">
                             	<a href="detail.html" class="item_book">
                                 <div class="item_preview"> 
-                                	<img alt="${prodAllList.description}" class="img_thumb" src="https://ssl.phinf.net/naverbooking/20170303_271/1488514705030TuUK4_JPEG/17%B5%E5%B8%B2%B0%C9%C1%EE_%B8%DE%C0%CE%C6%F7%BD%BA%C5%CD_%C3%D6%C1%BE.jpg?type=l591_945">
+                                	<img alt="${allList.description}" class="img_thumb" src="https://ssl.phinf.net/naverbooking/20170303_271/1488514705030TuUK4_JPEG/17%B5%E5%B8%B2%B0%C9%C1%EE_%B8%DE%C0%CE%C6%F7%BD%BA%C5%CD_%C3%D6%C1%BE.jpg?type=l591_945">
                                 	<span class="img_border"></span> 
                                 </div>
                                 <div class="event_txt">
-                                    <h4 class="event_txt_tit"> <span>${prodAllList.description}</span>
-                                    <c:forEach var="dispList" items="${displayList}">
-                                    <c:if test="${prodAllList.id==dispList.productId}"> 
-                                    <small class="sm">${dispList.placeName}</small> 
-                                    </c:if>
-                                    </c:forEach>
-                                    </h4>
-                                    <p class="event_txt_dsc">${prodAllList.content}</p>
+                                    <h4 class="event_txt_tit"> <span>${allList.description}</span><small class="sm">${allList.placeName}</small></h4>
+                                    <p class="event_txt_dsc">${allList.content}</p>
                                 </div>
                             	</a>
                           </li>
-	                </c:forEach>
+	                	</c:forEach>
                     </ul>
                     <ul class="lst_event_box" id="rightUl">
-                       <c:forEach var="prodAllList" items="${prodAllList}" begin="2" end="3" step="1">
+                    	<c:forEach var="allList" items="${allProdList}" begin="2" end="3" step="1">
 		                   <li class="item">
                             	<a href="detail.html" class="item_book">
                                 <div class="item_preview"> 
-                                	<img alt="${prodAllList.description}" class="img_thumb" src="https://ssl.phinf.net/naverbooking/20170303_271/1488514705030TuUK4_JPEG/17%B5%E5%B8%B2%B0%C9%C1%EE_%B8%DE%C0%CE%C6%F7%BD%BA%C5%CD_%C3%D6%C1%BE.jpg?type=l591_945">
+                                	<img alt="${allList.description}" class="img_thumb" src="https://ssl.phinf.net/naverbooking/20170303_271/1488514705030TuUK4_JPEG/17%B5%E5%B8%B2%B0%C9%C1%EE_%B8%DE%C0%CE%C6%F7%BD%BA%C5%CD_%C3%D6%C1%BE.jpg?type=l591_945">
                                 	<span class="img_border"></span> 
                                 </div>
                                 <div class="event_txt">
-                                    <h4 class="event_txt_tit"> <span>${prodAllList.description}</span>
-                                    <c:forEach var="dispList" items="${displayList}">
-                                    <c:if test="${prodAllList.id==dispList.productId}"> 
-                                    <small class="sm">${dispList.placeName}</small> 
-                                    </c:if>
-                                    </c:forEach>
-                                    </h4>
-                                    <p class="event_txt_dsc">${prodAllList.content}</p>
+                                    <h4 class="event_txt_tit"> <span>${allList.description}</span><small class="sm">${allList.placeName}</small></h4>
+                                    <p class="event_txt_dsc">${allList.content}</p>
                                 </div>
                             	</a>
                           </li>
-	                </c:forEach>
+	                	</c:forEach>
                     </ul>
                     <!-- 더보기 -->
                     <div class="more">
@@ -116,35 +105,6 @@
             </div>
         </div>
     </div>
-                <c:forEach var="cateList" items="${categoryList}">
-	                    <strong>${cateList.name}</strong><br>
-                </c:forEach> 
-                바로 예매 가능한 전시, 공연, 행사가 ${allCount }개 있습니다 <br>
-     	  카테고리1: 바로 예매 가능한 전시, 공연, 행사가 ${count }개 있습니다 <br>
-     	  
-                <c:forEach var="pagingList" items="${pagingList}">
-	                   description: ${pagingList.description}<br>
-	                   content:  ${pagingList.content}<br>
-	                   <c:forEach var="dispList" items="${displayList}">
-			                <c:if test="${pagingList.id==dispList.productId}">
-					           placeName: ${dispList.placeName}<br>
-			                </c:if>
-	                	</c:forEach> 
-	                ---------------------------------------<br>
-                </c:forEach>
-	                ======================================================<br>
-	                <c:forEach var="prodAllList" items="${prodAllList}">
-	                   description: ${prodAllList.description}<br>
-	                   content:  ${prodAllList.content}<br>
-	                   <c:forEach var="dispList" items="${displayList}">
-			                <c:if test="${prodAllList.id==dispList.productId}">
-					           placeName: ${dispList.placeName}<br>
-			                </c:if>
-	                </c:forEach> 
-	                ---------------------------------------<br>
-                </c:forEach>
-                
-
     <footer>
         <div class="gototop">
             <a href="#" class="lnk_top"> <span class="lnk_top_text">TOP</span> </a>
@@ -176,6 +136,20 @@
                 </div>
 
         </li>
+    </script>
+
+    <script>
+    	var promItem=document.querySelector("#promotionItem");
+    	var promUl=document.querySelector(".visual_img");
+    	var preBtn=document.querySelector(".btn_pre_e");
+    	var nxtBtn=document.querySelector(".btn_nxt_e");
+    	
+		preBtn.addEventListener("click",function(){
+    		
+    	});
+    	nxtBtn.addEventListener("click",function(){
+    		
+    	});
     </script>
 <script>
  	function mainAjax2(){
@@ -221,26 +195,33 @@
 		var oReq=new XMLHttpRequest();
 		oReq.addEventListener("load",function(){
 			console.log("카테고리아이디를 가져와야함");
+			console.log("url: "+url);
 		});
-		oReq.open("GET", url);
-		oReq.send();
+		oReq.open("GET", url,true);
+		oReq.send(null);
 	}
 	var cateTab=document.querySelector(".cateTab");
 	cateTab.addEventListener("click", function(e){
-		console.log(e.target.innerText);
-		
-		cateAjax("/reservation/main");
-		
-		changeActive();
-		
+        if (e.target.tagName === "A") {
+        	console.log(e.target.innerText);
+    		
+        	removeActive();
+        	e.target.classList.add("active");
+
+        	cateAjax("/reservation/main?categoryId=5&start=1");
+         }		
 	});
-	function changeActive(){
+	function removeActive(){
 		var anchor=document.querySelectorAll(".anchor");
 		for(var i=0, len=anchor.length; i<len; i++ ){
 			anchor[i].classList.remove("active");
 		}
-		e.target.classList.add("active");
+		//e.target.classList.add("active");
 	}
+</script>
+<script>
+	/* var size=${prodImgList}.size();
+	console.log(size); */
 </script>
 </body>
 </html>
