@@ -70,7 +70,7 @@
 		                   <li class="item">
                             	<a href="detail.html" class="item_book">
                                 <div class="item_preview"> 
-                                	<img alt="${allList.description}" class="img_thumb" src="https://ssl.phinf.net/naverbooking/20170303_271/1488514705030TuUK4_JPEG/17%B5%E5%B8%B2%B0%C9%C1%EE_%B8%DE%C0%CE%C6%F7%BD%BA%C5%CD_%C3%D6%C1%BE.jpg?type=l591_945">
+                                	<img alt="${allList.description}" class="img_thumb" src="${allList.saveFileName}">
                                 	<span class="img_border"></span> 
                                 </div>
                                 <div class="event_txt">
@@ -86,7 +86,7 @@
 		                   <li class="item">
                             	<a href="detail.html" class="item_book">
                                 <div class="item_preview"> 
-                                	<img alt="${allList.description}" class="img_thumb" src="https://ssl.phinf.net/naverbooking/20170303_271/1488514705030TuUK4_JPEG/17%B5%E5%B8%B2%B0%C9%C1%EE_%B8%DE%C0%CE%C6%F7%BD%BA%C5%CD_%C3%D6%C1%BE.jpg?type=l591_945">
+                                	<img alt="${allList.description}" class="img_thumb" src="${allList.saveFileName}">
                                 	<span class="img_border"></span> 
                                 </div>
                                 <div class="event_txt">
@@ -97,6 +97,7 @@
                           </li>
 	                	</c:forEach>
                     </ul>
+				    
                     <!-- 더보기 -->
                     <div class="more">
                         <button class="btn"><span>더보기</span></button>
@@ -128,19 +129,29 @@
     </script>
 
     <script type="rv-template" id="itemList">
+        <c:forEach var="all" items="${allProdList}">
         <li class="item">
-
+                <div class="event_txt">
+                    <h4 class="event_txt_tit"> <span>${all.description}</span> <small class="sm">${all.placeName}</small> </h4>
+                    <p class="event_txt_dsc">${all.content}</p>
+                </div>
+        </li>
+		</c:forEach>
+    </script>
+        <script type="rv-template" id="itemList2">
+        <li class="item">
                 <div class="event_txt">
                     <h4 class="event_txt_tit"> <span>${description}</span> <small class="sm">${placeName}</small> </h4>
                     <p class="event_txt_dsc">${content}</p>
                 </div>
-
         </li>
     </script>
 
     <script>
     	var promItem=document.querySelector("#promotionItem");
     	var promUl=document.querySelector(".visual_img");
+    	
+    	
     	var preBtn=document.querySelector(".btn_pre_e");
     	var nxtBtn=document.querySelector(".btn_nxt_e");
     	
@@ -152,40 +163,51 @@
     	});
     </script>
 <script>
- 	function mainAjax2(){
+	var itemList="";
+ 	function mainAjax2(url){
 		var oReq=new XMLHttpRequest();
 		oReq.addEventListener("load",function(){
-			//var itemList = document.querySelector("#itemList").innerText;
+ 			 itemList = document.querySelector("#itemList").innerText;			
+			//console.log(itemList);
+ 			
+/* 				var leftUl=document.querySelector("#leftUl");
+				leftUl.insertAdjacentHTML('beforeend',itemList);
+				console.log("추가"); */
 			
-//			console.log(itemList);
-			console.log("maindata2");
-/*  			for(var i=1; i<=2; i++){
 				var leftUl=document.querySelector("#leftUl");
 				leftUl.insertAdjacentHTML('beforeend',itemList);
-				console.log("추가");
-			}
-			for(var i=1; i<=2; i++){
+				
+	     	
+/*			for(var i=1; i<=2; i++){
 				var rightUl=document.querySelector("#rightUl");
 				rightUl.insertAdjacentHTML('beforeend',itemList);
 				console.log("추가");
 			}   */
 			
-			var resultHTML="";
+			/* var resultHTML="";
 			var itemList=document.querySelector("#itemList").innerHTML;
 			for(var i=1; i<=2; i++){
 				resultHTML+=itemList.replace("${description}",data[i].name)
-			}
+			} */
 			
 /*  			var data=JSON.parse(this.responseText);
 			console.log(data);  */
+			
+			//다시
+			console.log(this.responseText);
+			//console.log(JSON.parse());
+			
 		});
-		oReq.open("GET", "/reservation/main", true);
-		oReq.send();
+		oReq.open("POST", url, true);
+		oReq.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		oReq.send("start=4");
  	}
 	var btn=document.querySelector(".btn");
    	btn.addEventListener("click", function(){
-			mainAjax2();
-			console.log("log");	
+   			var url="/reservation/main";
+			mainAjax2(url);
+			console.log("더보기버튼 누름");
+
    	});
 </script>
 
@@ -197,8 +219,9 @@
 			console.log("카테고리아이디를 가져와야함");
 			console.log("url: "+url);
 		});
-		oReq.open("GET", url,true);
-		oReq.send(null);
+		oReq.open("POST", url,true);
+		oReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		oReq.send("categoryId=2");
 	}
 	var cateTab=document.querySelector(".cateTab");
 	cateTab.addEventListener("click", function(e){
@@ -208,7 +231,7 @@
         	removeActive();
         	e.target.classList.add("active");
 
-        	cateAjax("/reservation/main?categoryId=5&start=1");
+        	cateAjax("/reservation/main");
          }		
 	});
 	function removeActive(){

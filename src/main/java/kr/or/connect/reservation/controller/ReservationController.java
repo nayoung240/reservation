@@ -1,7 +1,9 @@
 package kr.or.connect.reservation.controller;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,10 +20,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.connect.reservation.dto.Category;
 import kr.or.connect.reservation.dto.DisplayInfo;
+import kr.or.connect.reservation.dto.FileInfo;
 import kr.or.connect.reservation.dto.Product;
+import kr.or.connect.reservation.dto.Promotions;
 import kr.or.connect.reservation.dto.Promotion;
 import kr.or.connect.reservation.service.CategoryService;
 import kr.or.connect.reservation.service.DisplayInfoService;
+import kr.or.connect.reservation.service.FileInfoService;
+import kr.or.connect.reservation.service.ProductImagesService;
 import kr.or.connect.reservation.service.ProductService;
 
 
@@ -32,48 +39,73 @@ public class ReservationController {
 	ProductService prodS;
 	@Autowired
 	DisplayInfoService dispS;
+	@Autowired
+	ProductImagesService prodImgS;
+	@Autowired
+	FileInfoService fileS;
 	
-	@GetMapping(path="/main")
-	public String main(	@RequestParam(name="categoryId", required=false, defaultValue="1") int categoryId,
-						@RequestParam(name="productId", required=false, defaultValue="1") int productId,
+
+	
+	//@PostMapping(path="/main")
+	@RequestMapping(value="/main" , method = {RequestMethod.GET, RequestMethod.POST})
+	public String products(
+					@RequestParam(name="categoryId", required=false, defaultValue="1") int categoryId,
 					@RequestParam(name="start", required=false, defaultValue="0") int start,
 					ModelMap mm) {
 		
 		List<Category> categoryList=cateS.getCategories();
-		
-		List<Product> productAllList=prodS.getAllProducts(start);                                                                                             
+
+		//List<Product> productAllList=prodS.getAllProducts(start);                                                                                             
 		//List<Product> productAllList=prodS.getAllProducts();                     
-		List<Product> pagingList=prodS.getProduct(categoryId, start);
+	
+		//List<Product> pagingList=prodS.getProduct(categoryId, start);
+		//List<Product> joinList=prodS.getJoinProducts(categoryId);
 		
 		List<DisplayInfo> displayList=dispS.getDisplayInfos();
 		
-		int allCnt=prodS.getAllCount();
+	
+		//개수
+		int allCnt=prodS.getAllCount();		
+		int cateCnt=prodS.getCateCount(categoryId);
 		
-
-
-		//페이징 번호
-/*		int cnt=prodS.getCateCount(categoryId);  
-		int pageCnt=cnt/ProductService.LIMIT;
-		if(cnt%ProductService.LIMIT>0) {
-			pageCnt++;
+		//product
+		List<Product> allProdList=prodS.getAllProduct(start);
+		for(int i=0; i<allProdList.size(); i++) {
+			System.out.println(allProdList.get(i).getPlaceName());
 		}
-		List<Integer> pageStartList=new ArrayList<>();
-		for(int i=0; i<pageCnt; i++) {
-			pageStartList.add(i*ProductService.LIMIT);
-		}*/
+		System.out.println("-------------------------");
 		
-		mm.addAttribute("categoryList", categoryList);
-
-		mm.addAttribute("prodAllList", productAllList);
-
+		List<Object> plaNameList=new ArrayList<>();
+	/*	for(int i=0; i<allProdList.size(); i++) {
+			plaNameList.add(allProdList.get(i).getPlaceName());
+		}
+		System.out.println(plaNameList);
+	*/	
+		//List<Map<String, Object>> allProdList=prodS.getAllProduct(start);
+		List<Map<String, Object>> cateProdList=prodS.getCateProduct(categoryId, start);
+		
+		
+		//카테고리
+		mm.addAttribute("categoryList", categoryList);	
+		
+		//개수
+		mm.addAttribute("allCnt", allCnt);
+		mm.addAttribute("cateCnt", cateCnt);
+		
+		//product
+		mm.addAttribute("allProdList", allProdList);
+		mm.addAttribute("plaNameList", plaNameList);
+		mm.addAttribute("cateProdList", cateProdList);
+		
+		
+		//mm.addAttribute("prodAllList", productAllList);
 		//	mm.addAttribute("promotionList", promotionList);
-		
-		mm.addAttribute("allCount", allCnt);
-		mm.addAttribute("pagingList", pagingList);
-/*		mm.addAttribute("count", cnt);
-		mm.addAttribute("pageStartList", pageStartList);*/
+		//mm.addAttribute("pagingList", pagingList);
+		//mm.addAttribute("joinList", joinList);
 		
 		mm.addAttribute("displayList", displayList);
+		
 		return "main";
 	}
+	
 }
