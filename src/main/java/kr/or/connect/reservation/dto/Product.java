@@ -1,8 +1,10 @@
 package kr.or.connect.reservation.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class Product {
+	//product 테이블
 	private int id;
 	private int categoryId;
 	private String description;
@@ -11,9 +13,28 @@ public class Product {
 	private Date createDate;
 	private Date modifyDate;
 	
-/*	private String placeName;
+	//display_info 테이블
+	private String placeName;
 	private int productId;
 	
+	//product_image 테이블
+	private int fileId;
+	
+	//file_info 테이블
+	private String saveFileName;
+	
+	public int getFileId() {
+		return fileId;
+	}
+	public void setFileId(int fileId) {
+		this.fileId = fileId;
+	}
+	public String getSaveFileName() {
+		return saveFileName;
+	}
+	public void setSaveFileName(String saveFileName) {
+		this.saveFileName = saveFileName;
+	}
 	public String getPlaceName() {
 		return placeName;
 	}
@@ -26,7 +47,7 @@ public class Product {
 	}
 	public void setProductId(int productId) {
 		this.productId = productId;
-	}*/
+	}
 
 	public int getId() {
 		return id;
@@ -73,6 +94,9 @@ public class Product {
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", categoryId=" + categoryId + ", description=" + description + ", content="
-				+ content + ", event=" + event + ", createDate=" + createDate + ", modifyDate=" + "modifyDate]";
+				+ content + ", event=" + event + ", createDate=" + createDate + ", modifyDate=" + modifyDate
+				+ ", placeName=" + placeName + ", productId=" + productId + ", fileId=" + fileId + ", saveFileName="
+				+ saveFileName + "]";
 	}
+	
 }
