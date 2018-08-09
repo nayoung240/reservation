@@ -17,18 +17,9 @@ public class Product {
 	private String placeName;
 	private int productId;
 	
-	//product_image 테이블
-	private int fileId;
-	
 	//file_info 테이블
 	private String saveFileName;
 	
-	public int getFileId() {
-		return fileId;
-	}
-	public void setFileId(int fileId) {
-		this.fileId = fileId;
-	}
 	public String getSaveFileName() {
 		return saveFileName;
 	}
@@ -95,7 +86,7 @@ public class Product {
 	public String toString() {
 		return "Product [id=" + id + ", categoryId=" + categoryId + ", description=" + description + ", content="
 				+ content + ", event=" + event + ", createDate=" + createDate + ", modifyDate=" + modifyDate
-				+ ", placeName=" + placeName + ", productId=" + productId + ", fileId=" + fileId + ", saveFileName="
+				+ ", placeName=" + placeName + ", productId=" + productId + ", saveFileName="
 				+ saveFileName + "]";
 	}
 	
