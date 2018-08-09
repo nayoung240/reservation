@@ -1,6 +1,7 @@
 package kr.or.connect.reservation.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,11 +16,11 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	ProductDao proddao;
 	
-	@Override
+/*	@Override
 	public List<Product> getAllProducts(Integer start) {
 		List<Product> list=proddao.prodAllList(start, LIMIT);
 		return list;
-	}
+	}*/
 
 	/*@Override
 	public List<Product> getAllProducts() {
@@ -37,10 +38,32 @@ public class ProductServiceImpl implements ProductService {
 		return proddao.cateCount(categoryId);
 	}
 
-	@Override
+/*	@Override
 	@Transactional
 	public List<Product> getProduct(Integer categoryId, Integer start) {
 		List<Product> list=proddao.prodInfo(categoryId, start, LIMIT);
+		return list;
+	}*/
+
+/*	@Override
+	@Transactional
+	public List<Map<String, Object>> getAllProduct(Integer start) {
+		List<Map<String, Object>> list=proddao.allProdList(start, LIMIT);
+		return list;
+	}*/
+
+	
+	@Override
+	@Transactional
+	public List<Product> getAllProduct(Integer start) {
+		List<Product> list=proddao.allProdList(start, LIMIT);
+		return list;
+	}
+	
+	@Override
+	@Transactional
+	public List<Map<String, Object>> getCateProduct(Integer categoryId, Integer start) {
+		List<Map<String, Object>> list=proddao.cateProdList(categoryId, start, LIMIT);
 		return list;
 	}
 

@@ -59,7 +59,7 @@ public class ProductDao {
 	}*/
 	
 	//join사용
-	//p.id, p.category_id, p.description, p.content, d.place_name, f.save_file_name
+	//p.id, p.category_id, p.description, p.content, d.place_name, fi.file_id, f.save_file_name
 	public List<Product> allProdList(Integer start, Integer limit){
 		Map<String, Integer> params=new HashMap<>();
 		params.put("start", start);
@@ -74,7 +74,8 @@ public class ProductDao {
 				p.setDescription(rs.getString(3));
 				p.setContent(rs.getString(4));
 				p.setPlaceName(rs.getString(5));
-				p.setSaveFileName(rs.getString(6));
+				p.setFileId(rs.getInt(6));
+				p.setSaveFileName(rs.getString(7));
 				return p;
 			}
 		});
