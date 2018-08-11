@@ -20,14 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.connect.reservation.dto.Category;
 import kr.or.connect.reservation.dto.DisplayInfo;
-import kr.or.connect.reservation.dto.FileInfo;
 import kr.or.connect.reservation.dto.Product;
 import kr.or.connect.reservation.dto.Promotions;
-import kr.or.connect.reservation.dto.Promotion;
 import kr.or.connect.reservation.service.CategoryService;
 import kr.or.connect.reservation.service.DisplayInfoService;
-import kr.or.connect.reservation.service.FileInfoService;
-import kr.or.connect.reservation.service.ProductImagesService;
+import kr.or.connect.reservation.service.PromotionsService;
 import kr.or.connect.reservation.service.ProductService;
 
 
@@ -40,13 +37,8 @@ public class ReservationController {
 	@Autowired
 	DisplayInfoService dispS;
 	@Autowired
-	ProductImagesService prodImgS;
-	@Autowired
-	FileInfoService fileS;
+	PromotionsService promS;
 	
-
-	
-	//@PostMapping(path="/main")
 	@RequestMapping(value="/main" , method = {RequestMethod.GET, RequestMethod.POST})
 	public String products(
 					@RequestParam(name="categoryId", required=false, defaultValue="1") int categoryId,
@@ -70,20 +62,11 @@ public class ReservationController {
 		
 		//product
 		List<Product> allProdList=prodS.getAllProduct(start);
-		for(int i=0; i<allProdList.size(); i++) {
-			System.out.println(allProdList.get(i).getPlaceName());
-		}
-		System.out.println("-------------------------");
-		
-		List<Object> plaNameList=new ArrayList<>();
-	/*	for(int i=0; i<allProdList.size(); i++) {
-			plaNameList.add(allProdList.get(i).getPlaceName());
-		}
-		System.out.println(plaNameList);
-	*/	
-		//List<Map<String, Object>> allProdList=prodS.getAllProduct(start);
+
 		List<Map<String, Object>> cateProdList=prodS.getCateProduct(categoryId, start);
-		
+
+		//promotion
+		List<Promotions> allPromList=promS.getPromotionsImages();
 		
 		//카테고리
 		mm.addAttribute("categoryList", categoryList);	
@@ -94,14 +77,11 @@ public class ReservationController {
 		
 		//product
 		mm.addAttribute("allProdList", allProdList);
-		mm.addAttribute("plaNameList", plaNameList);
 		mm.addAttribute("cateProdList", cateProdList);
 		
+		//promotion
+		mm.addAttribute("allPromList", allPromList);
 		
-		//mm.addAttribute("prodAllList", productAllList);
-		//	mm.addAttribute("promotionList", promotionList);
-		//mm.addAttribute("pagingList", pagingList);
-		//mm.addAttribute("joinList", joinList);
 		
 		mm.addAttribute("displayList", displayList);
 		

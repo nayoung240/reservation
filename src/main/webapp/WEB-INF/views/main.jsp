@@ -41,7 +41,17 @@
                             <div class="container_visual">
                                 <!-- [D] 이전,다음 버튼을 클릭할때마다 캐러셀 형태로 순환 됨 -->
                                 <ul class="visual_img">
-
+                                	<c:forEach var="promList" items="${allPromList}">
+									<li class="item" style="background-image: url('${promList.saveFileName}');">
+								        <a href="#"> <span class="img_btm_border"></span> <span class="img_right_border"></span> <span class="img_bg_gra"></span>
+								            <div class="event_txt">
+								                <h4 class="event_txt_tit"></h4>
+								                <p class="event_txt_adr"></p>
+								                <p class="event_txt_dsc"></p>
+								            </div>
+								        </a>
+								    </li>
+								    </c:forEach>
                                 </ul>
                             </div>
                             <span class="nxt_fix" style="display:none;"></span>
