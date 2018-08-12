@@ -139,21 +139,17 @@
     </script>
 
     <script type="rv-template" id="itemList">
-        <c:forEach var="all" items="${allProdList}">
         <li class="item">
-                <div class="event_txt">
-                    <h4 class="event_txt_tit"> <span>${all.description}</span> <small class="sm">${all.placeName}</small> </h4>
-                    <p class="event_txt_dsc">${all.content}</p>
+            <a href="" class="item_book">
+                <div class="item_preview">
+                    <img alt="{{description}}" class="img_thumb" src="{{saveFileName}}">
+                    <span class="img_border"></span>
                 </div>
-        </li>
-		</c:forEach>
-    </script>
-        <script type="rv-template" id="itemList2">
-        <li class="item">
                 <div class="event_txt">
-                    <h4 class="event_txt_tit"> <span>${description}</span> <small class="sm">${placeName}</small> </h4>
-                    <p class="event_txt_dsc">${content}</p>
+                    <h4 class="event_txt_tit"> <span>{{description}}</span> <small class="sm">{{placeName}}</small> </h4>
+                    <p class="event_txt_dsc">{{content}}</p>
                 </div>
+            </a>
         </li>
     </script>
 
@@ -172,57 +168,56 @@
     		
     	});
     </script>
-<script>
-	var itemList="";
- 	function mainAjax2(url){
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+	<script>
+ 	function addProductAjax(url, startNum){
 		var oReq=new XMLHttpRequest();
 		oReq.addEventListener("load",function(){
- 			 itemList = document.querySelector("#itemList").innerText;			
-			//console.log(itemList);
- 			
-/* 				var leftUl=document.querySelector("#leftUl");
-				leftUl.insertAdjacentHTML('beforeend',itemList);
-				console.log("추가"); */
+			//json
+ 			var json=JSON.parse(this.responseText);
+			var left=[];
+			for(var i=0; i<2; i++){
+				left.push(json.allProdList[i]);
+			}
+			var right=[];
+			for(var i=2; i<4; i++){
+				right.push(json.allProdList[i]);
+			}
 			
-				var leftUl=document.querySelector("#leftUl");
-				leftUl.insertAdjacentHTML('beforeend',itemList);
-				
-	     	
-/*			for(var i=1; i<=2; i++){
-				var rightUl=document.querySelector("#rightUl");
-				rightUl.insertAdjacentHTML('beforeend',itemList);
-				console.log("추가");
-			}   */
-			
-			/* var resultHTML="";
-			var itemList=document.querySelector("#itemList").innerHTML;
-			for(var i=1; i<=2; i++){
-				resultHTML+=itemList.replace("${description}",data[i].name)
-			} */
-			
-/*  			var data=JSON.parse(this.responseText);
-			console.log(data);  */
-			
-			//다시
-			console.log(this.responseText);
-			//console.log(JSON.parse());
-			
+			//handlebar 
+ 			var template = document.querySelector("#itemList").innerText;	
+ 			var bindTemplate = Handlebars.compile(template); 
+ 			var leftHTML=left.reduce(function(prev,next){
+ 		        return prev+bindTemplate(next);
+ 		    },""); 			
+ 		    var rightHTML=right.reduce(function(prev,next){
+ 		        return prev+bindTemplate(next);
+ 		    },"");
+
+  		    var leftUl=document.querySelector("#leftUl");
+			leftUl.insertAdjacentHTML('beforeend',leftHTML);
+ 		    
+			var rightUl=document.querySelector("#rightUl");
+			rightUl.insertAdjacentHTML('beforeend',rightHTML); 
 		});
 		oReq.open("POST", url, true);
 		oReq.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		oReq.send("start=4");
+		oReq.send("start="+startNum);
  	}
 	var btn=document.querySelector(".btn");
+	var startNum=0;
    	btn.addEventListener("click", function(){
-   			var url="/reservation/main";
-			mainAjax2(url);
-			console.log("더보기버튼 누름");
-
+   			var url="/reservation/products";
+   			//0123/4567/891011/ ... 484950
+   			startNum+=4;
+   			console.log(startNum);
+   			console.log(${allCnt});
+			addProductAjax(url, startNum);
+			console.log("더보기");
    	});
-</script>
+	</script>
 
-<script>
-
+	<script>
 	function cateAjax(url){
 		var oReq=new XMLHttpRequest();
 		oReq.addEventListener("load",function(){
@@ -251,10 +246,6 @@
 		}
 		//e.target.classList.add("active");
 	}
-</script>
-<script>
-	/* var size=${prodImgList}.size();
-	console.log(size); */
 </script>
 </body>
 </html>
