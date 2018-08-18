@@ -181,26 +181,25 @@
 			
 			var leftUl=document.querySelector("#leftUl");
 			var rightUl=document.querySelector("#rightUl");
+			var left="";
+			var right=""; 
 			
-  			 for(var i=0; i<2; i++){
-				var left=template.replace("{description}",json.allProdList[i].description)
+			for(var i=0; i<2; i++){
+				left+=template.replace("{description}",json.allProdList[i].description)
 					.replace("{saveFileName}",json.allProdList[i].saveFileName)
 					.replace("{description}",json.allProdList[i].description)
 					.replace("{placeName}",json.allProdList[i].placeName)
 					.replace("{content}",json.allProdList[i].content);
-
-				leftUl.insertAdjacentHTML('beforeend',left);
 			} 
- 			 
 			for(var i=2; i<4; i++){
-				var right=template.replace("{description}",json.allProdList[i].description)
+				right+=template.replace("{description}",json.allProdList[i].description)
 				.replace("{saveFileName}",json.allProdList[i].saveFileName)
 				.replace("{description}",json.allProdList[i].description)
 				.replace("{placeName}",json.allProdList[i].placeName)
 				.replace("{content}",json.allProdList[i].content);
-				
-				rightUl.insertAdjacentHTML('beforeend',right); 
 			}
+			leftUl.insertAdjacentHTML('beforeend',left);
+			rightUl.insertAdjacentHTML('beforeend',right);  
 		});
 		oReq.open("POST", url, true);
 		oReq.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
