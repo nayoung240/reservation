@@ -155,17 +155,21 @@
     <script>
     	var promItem=document.querySelector("#promotionItem");
     	var promUl=document.querySelector(".visual_img");
-    	
-    	
-    	var preBtn=document.querySelector(".btn_pre_e");
-    	var nxtBtn=document.querySelector(".btn_nxt_e");
-    	
-		preBtn.addEventListener("click",function(){
-    		
-    	});
-    	nxtBtn.addEventListener("click",function(){
-    		
-    	});
+    
+    	var n=0;
+    	function slide(){
+      	  if(n==1000){
+      	    n=0;
+      	  	promUl.style.transitionDuration="0s";
+      	    promUl.style.transform ="translateX(-"+n+"%)";
+      	  }
+      	  else{
+      	    n+=100;  
+      	  	promUl.style.transitionDuration="1s";
+      	    promUl.style.transform ="translateX(-"+n+"%)";
+      	  }
+      	  setTimeout(slide,5000);
+      	}slide();
     </script>
 	<script>
  	function addProductAjax(url, startNum){
