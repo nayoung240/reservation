@@ -142,17 +142,16 @@
         <li class="item">
             <a href="" class="item_book">
                 <div class="item_preview">
-                    <img alt="{{description}}" class="img_thumb" src="{{saveFileName}}">
+                    <img alt="{description}" class="img_thumb" src="{saveFileName}">
                     <span class="img_border"></span>
                 </div>
                 <div class="event_txt">
-                    <h4 class="event_txt_tit"> <span>{{description}}</span> <small class="sm">{{placeName}}</small> </h4>
-                    <p class="event_txt_dsc">{{content}}</p>
+                    <h4 class="event_txt_tit"> <span>{description}</span> <small class="sm">{placeName}</small> </h4>
+                    <p class="event_txt_dsc">{content}</p>
                 </div>
             </a>
         </li>
     </script>
-
     <script>
     	var promItem=document.querySelector("#promotionItem");
     	var promUl=document.querySelector(".visual_img");
@@ -168,37 +167,36 @@
     		
     	});
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
 	<script>
  	function addProductAjax(url, startNum){
 		var oReq=new XMLHttpRequest();
 		oReq.addEventListener("load",function(){
-			//json
- 			var json=JSON.parse(this.responseText);
-			var left=[];
-			for(var i=0; i<2; i++){
-				left.push(json.allProdList[i]);
-			}
-			var right=[];
-			for(var i=2; i<4; i++){
-				right.push(json.allProdList[i]);
-			}
 			
-			//handlebar 
- 			var template = document.querySelector("#itemList").innerText;	
- 			var bindTemplate = Handlebars.compile(template); 
- 			var leftHTML=left.reduce(function(prev,next){
- 		        return prev+bindTemplate(next);
- 		    },""); 			
- 		    var rightHTML=right.reduce(function(prev,next){
- 		        return prev+bindTemplate(next);
- 		    },"");
-
-  		    var leftUl=document.querySelector("#leftUl");
-			leftUl.insertAdjacentHTML('beforeend',leftHTML);
- 		    
+			var json=JSON.parse(this.responseText);
+			var template = document.querySelector("#itemList").innerText;
+			
+			var leftUl=document.querySelector("#leftUl");
 			var rightUl=document.querySelector("#rightUl");
-			rightUl.insertAdjacentHTML('beforeend',rightHTML); 
+			
+  			 for(var i=0; i<2; i++){
+				var left=template.replace("{description}",json.allProdList[i].description)
+					.replace("{saveFileName}",json.allProdList[i].saveFileName)
+					.replace("{description}",json.allProdList[i].description)
+					.replace("{placeName}",json.allProdList[i].placeName)
+					.replace("{content}",json.allProdList[i].content);
+
+				leftUl.insertAdjacentHTML('beforeend',left);
+			} 
+ 			 
+			for(var i=2; i<4; i++){
+				var right=template.replace("{description}",json.allProdList[i].description)
+				.replace("{saveFileName}",json.allProdList[i].saveFileName)
+				.replace("{description}",json.allProdList[i].description)
+				.replace("{placeName}",json.allProdList[i].placeName)
+				.replace("{content}",json.allProdList[i].content);
+				
+				rightUl.insertAdjacentHTML('beforeend',right); 
+			}
 		});
 		oReq.open("POST", url, true);
 		oReq.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -207,45 +205,77 @@
 	var btn=document.querySelector(".btn");
 	var startNum=0;
    	btn.addEventListener("click", function(){
-   			var url="/reservation/products";
+   			var url="/reservation/allproducts";
    			//0123/4567/891011/ ... 484950
    			startNum+=4;
    			console.log(startNum);
-   			console.log(${allCnt});
 			addProductAjax(url, startNum);
 			console.log("더보기");
    	});
 	</script>
 
 	<script>
-	function cateAjax(url){
+	function cateAjax(sendType, url, send){
 		var oReq=new XMLHttpRequest();
 		oReq.addEventListener("load",function(){
 			console.log("카테고리아이디를 가져와야함");
-			console.log("url: "+url);
 		});
-		oReq.open("POST", url,true);
+		oReq.open(sendType, url,true);
 		oReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		oReq.send("categoryId=2");
+		oReq.send("categoryId="+send);
 	}
 	var cateTab=document.querySelector(".cateTab");
 	cateTab.addEventListener("click", function(e){
         if (e.target.tagName === "A") {
         	console.log(e.target.innerText);
     		
-        	removeActive();
+        	//카테고리 active
+    		var anchor=document.querySelectorAll(".anchor");
+    		for(var i=0, len=anchor.length; i<len; i++ ){
+    			anchor[i].classList.remove("active");
+    		}
         	e.target.classList.add("active");
-
-        	cateAjax("/reservation/main");
+        	
+        	//카테고리
+        	var sendType="POST";
+        	var url="/reservation/products";
+        	var send;        
+        	
+        	if(e.target.innerText=="전체리스트"){
+        		sendType="GET";
+            	url="/reservation/main";
+            	send=null;
+            	cateAjax(sendType, url, send);
+        	}
+        	else if(e.target.innerText=="전시"){
+            	send=1;
+            	cateAjax(sendType, url, send);
+        	}
+        	else if(e.target.innerText=="뮤지컬"){
+            	send=2;
+            	cateAjax(sendType, url, send);
+        	}
+        	else if(e.target.innerText=="콘서트"){
+            	send=3;
+            	cateAjax(sendType, url, send);
+        	}
+			else if(e.target.innerText=="클래식"){
+            	send=4;
+            	cateAjax(sendType, url, send);
+        	}
+			else if(e.target.innerText=="연극"){
+            	send=5;
+            	cateAjax(sendType, url, send);
+        	}
          }		
 	});
-	function removeActive(){
+/* 	function removeActive(){
 		var anchor=document.querySelectorAll(".anchor");
 		for(var i=0, len=anchor.length; i<len; i++ ){
 			anchor[i].classList.remove("active");
 		}
 		//e.target.classList.add("active");
-	}
+	} */
 </script>
 </body>
 </html>
