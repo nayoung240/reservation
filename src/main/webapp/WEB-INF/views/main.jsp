@@ -255,7 +255,7 @@
    		var pink=document.querySelector(".pink");
    		
    		if(cateName=="전체리스트"){
-   			pink.innerText=json.cateCntList[0].cateCnt;
+   			pink.innerText=${allCnt};
    		}
    		else if(cateName=="전시"){
    			pink.innerText=json.cateCntList[0].cateCnt;
@@ -266,14 +266,14 @@
    		else if(cateName=="콘서트"){
    			pink.innerText=json.cateCntList[2].cateCnt;
    		}
-   		else if(cateName=="클래식"){/* 
-   			pink.innerText=json.cateCntList[3].cateCnt; */
-   			pink.innerText=30;
+   		else if(cateName=="클래식"){
+   			pink.innerText=json.cateCntList[3].cateCnt;
    		}
    		else if(cateName=="연극"){
    			pink.innerText=json.cateCntList[4].cateCnt;
    		}
    	}
+   	
    	function cateAjax(type, sendType, url, sendContent, cateName){
 		var oReq=new XMLHttpRequest();
 		oReq.addEventListener("load",function(){
