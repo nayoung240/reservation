@@ -41,29 +41,16 @@ public class ReservationController {
 	
 	@RequestMapping(value="/main" , method = {RequestMethod.GET, RequestMethod.POST})
 	public String products(
-					@RequestParam(name="categoryId", required=false, defaultValue="1") int categoryId,
 					@RequestParam(name="start", required=false, defaultValue="0") int start,
 					ModelMap mm) {
 		
 		List<Category> categoryList=cateS.getCategories();
-
-		//List<Product> productAllList=prodS.getAllProducts(start);                                                                                             
-		//List<Product> productAllList=prodS.getAllProducts();                     
-	
-		//List<Product> pagingList=prodS.getProduct(categoryId, start);
-		//List<Product> joinList=prodS.getJoinProducts(categoryId);
 		
-		List<DisplayInfo> displayList=dispS.getDisplayInfos();
-		
-	
 		//개수
 		int allCnt=prodS.getAllCount();		
-		int cateCnt=prodS.getCateCount(categoryId);
 		
 		//product
 		List<Product> allProdList=prodS.getAllProduct(start);
-
-		List<Map<String, Object>> cateProdList=prodS.getCateProduct(categoryId, start);
 
 		//promotion
 		List<Promotions> allPromList=promS.getPromotionsImages();
@@ -73,17 +60,12 @@ public class ReservationController {
 		
 		//개수
 		mm.addAttribute("allCnt", allCnt);
-		mm.addAttribute("cateCnt", cateCnt);
 		
 		//product
 		mm.addAttribute("allProdList", allProdList);
-		mm.addAttribute("cateProdList", cateProdList);
 		
 		//promotion
 		mm.addAttribute("allPromList", allPromList);
-		
-		
-		mm.addAttribute("displayList", displayList);
 		
 		return "main";
 	}
