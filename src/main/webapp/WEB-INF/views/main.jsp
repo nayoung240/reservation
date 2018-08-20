@@ -72,11 +72,11 @@
                 </ul>
             </div>
             <div class="section_event_lst">
-                <p class="event_lst_txt">바로 예매 가능한 행사가 <span class="pink">${allCnt}개</span> 있습니다</p>
+                <p class="event_lst_txt">바로 예매 가능한 행사가 <span class="pink">${allCnt}</span>개 있습니다</p>
                 <div class="wrap_event_box">
                     <!-- [D] lst_event_box 가 2컬럼으로 좌우로 나뉨, 더보기를 클릭할때마다 좌우 ul에 li가 추가됨 -->
                     <ul class="lst_event_box" id="leftUl">
-                       <c:forEach var="allList" items="${allProdList}" begin="0" end="1" step="1">
+                         <c:forEach var="allList" items="${allProdList}" begin="0" end="1" step="1">
 		                   <li class="item">
                             	<a href="detail.html" class="item_book">
                                 <div class="item_preview"> 
@@ -92,7 +92,7 @@
 	                	</c:forEach>
                     </ul>
                     <ul class="lst_event_box" id="rightUl">
-                    	<c:forEach var="allList" items="${allProdList}" begin="2" end="3" step="1">
+					<c:forEach var="allList" items="${allProdList}" begin="2" end="3" step="1">
 		                   <li class="item">
                             	<a href="detail.html" class="item_book">
                                 <div class="item_preview"> 
@@ -172,18 +172,15 @@
       	}slide();
     </script>
 	<script>
- 	function addProductAjax(url, startNum){
-		var oReq=new XMLHttpRequest();
-		oReq.addEventListener("load",function(){
-			
-			var json=JSON.parse(this.responseText);
-			var template = document.querySelector("#itemList").innerText;
-			
-			var leftUl=document.querySelector("#leftUl");
-			var rightUl=document.querySelector("#rightUl");
-			var left="";
-			var right=""; 
-			
+	function addProdList(json, type, type2){
+		var template = document.querySelector("#itemList").innerText;
+		
+		var leftUl=document.querySelector("#leftUl");
+		var rightUl=document.querySelector("#rightUl");
+		var left="";
+		var right=""; 
+		
+		if(type=="all"){
 			for(var i=0; i<2; i++){
 				left+=template.replace("{description}",json.allProdList[i].description)
 					.replace("{saveFileName}",json.allProdList[i].saveFileName)
@@ -198,35 +195,97 @@
 				.replace("{placeName}",json.allProdList[i].placeName)
 				.replace("{content}",json.allProdList[i].content);
 			}
-			leftUl.insertAdjacentHTML('beforeend',left);
-			rightUl.insertAdjacentHTML('beforeend',right);  
+			if(type2=="more"){
+				leftUl.insertAdjacentHTML('beforeend',left);
+				rightUl.insertAdjacentHTML('beforeend',right); 
+			}
+			else if(type2=="base"){
+				leftUl.innerHTML = left;
+				rightUl.innerHTML = right;
+			}
+		}
+		else if(type=="category"){
+			for(var i=0; i<2; i++){
+				left+=template.replace("{description}",json.cateProdList[i].description)
+					.replace("{saveFileName}",json.cateProdList[i].saveFileName)
+					.replace("{description}",json.cateProdList[i].description)
+					.replace("{placeName}",json.cateProdList[i].placeName)
+					.replace("{content}",json.cateProdList[i].content);
+			} 
+			for(var i=2; i<4; i++){
+				right+=template.replace("{description}",json.cateProdList[i].description)
+				.replace("{saveFileName}",json.cateProdList[i].saveFileName)
+				.replace("{description}",json.cateProdList[i].description)
+				.replace("{placeName}",json.cateProdList[i].placeName)
+				.replace("{content}",json.cateProdList[i].content);
+			}
+			if(type2=="more"){
+				leftUl.insertAdjacentHTML('beforeend',left);
+				rightUl.insertAdjacentHTML('beforeend',right); 
+			}
+			else if(type2=="base"){
+				leftUl.innerHTML = left;
+				rightUl.innerHTML = right;
+			}
+		}
+	}
+	
+ 	function moreProductAjax(type, url, startNum){
+		var oReq=new XMLHttpRequest();
+		oReq.addEventListener("load",function(){
+			var json=JSON.parse(this.responseText);
+		//	addProdList(json, type, "more");	
 		});
 		oReq.open("POST", url, true);
 		oReq.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		oReq.send("start="+startNum);
  	}
-	var btn=document.querySelector(".btn");
-	var startNum=0;
+ 	var btn=document.querySelector(".btn");
+//	var startNum=0;
+//	var moreType="";
    	btn.addEventListener("click", function(){
-   			var url="/reservation/allproducts";
    			//0123/4567/891011/ ... 484950
-   			startNum+=4;
-   			console.log(startNum);
-			addProductAjax(url, startNum);
-			console.log("더보기");
-   	});
-	</script>
+   		//	startNum+=4;
+   		//	console.log("startNum: "+startNum);
+		//	moreProductAjax(moreType, "/reservation/products", startNum);
+		//	console.log("moreType: "+moreType);
+   	}); 
 
-	<script>
-	function cateAjax(sendType, url, send){
+   	function countProduct(json, cateName){
+   		var pink=document.querySelector(".pink");
+   		
+   		if(cateName=="전체리스트"){
+   			pink.innerText=json.cateCntList[0].cateCnt;
+   		}
+   		else if(cateName=="전시"){
+   			pink.innerText=json.cateCntList[0].cateCnt;
+   		}
+   		else if(cateName=="뮤지컬"){
+   			pink.innerText=json.cateCntList[1].cateCnt;
+   		}
+   		else if(cateName=="콘서트"){
+   			pink.innerText=json.cateCntList[2].cateCnt;
+   		}
+   		else if(cateName=="클래식"){/* 
+   			pink.innerText=json.cateCntList[3].cateCnt; */
+   			pink.innerText=30;
+   		}
+   		else if(cateName=="연극"){
+   			pink.innerText=json.cateCntList[4].cateCnt;
+   		}
+   	}
+   	function cateAjax(type, sendType, url, sendContent, cateName){
 		var oReq=new XMLHttpRequest();
 		oReq.addEventListener("load",function(){
-			console.log("카테고리아이디를 가져와야함");
+			var json=JSON.parse(this.responseText);
+			addProdList(json, type, "base");
+			countProduct(json, cateName);
 		});
 		oReq.open(sendType, url,true);
 		oReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		oReq.send("categoryId="+send);
+		oReq.send(sendContent);
 	}
+   	
 	var cateTab=document.querySelector(".cateTab");
 	cateTab.addEventListener("click", function(e){
         if (e.target.tagName === "A") {
@@ -239,38 +298,35 @@
     		}
         	e.target.classList.add("active");
         	
-        	//카테고리
-        	var sendType="POST";
-        	var url="/reservation/products";
-        	var send;        
-        	
-        	if(e.target.innerText=="전체리스트"){
-        		sendType="GET";
-            	url="/reservation/main";
-            	send=null;
-            	cateAjax(sendType, url, send);
+        	//카테고리 ajax
+        	var btn=document.querySelector(".btn");
+            var startNum=0;
+            
+            if(e.target.innerText=="전체리스트"){
+            	cateAjax("all", "GET", "/reservation/products", null, e.target.innerText);
+           // 	moreType="all";
         	}
-        	else if(e.target.innerText=="전시"){
-            	send=1;
-            	cateAjax(sendType, url, send);
+            else if(e.target.innerText=="전시"){
+            	cateAjax("category", "POST", "/reservation/products", "categoryId=1", e.target.innerText);
+ 			//	moreType="category";
         	}
         	else if(e.target.innerText=="뮤지컬"){
-            	send=2;
-            	cateAjax(sendType, url, send);
+            	cateAjax("category", "POST", "/reservation/products", "categoryId=2", e.target.innerText);
+            //	moreType="category";
         	}
         	else if(e.target.innerText=="콘서트"){
-            	send=3;
-            	cateAjax(sendType, url, send);
+            	cateAjax("category", "POST", "/reservation/products", "categoryId=3", e.target.innerText);
+            	//moreType="category";
         	}
 			else if(e.target.innerText=="클래식"){
-            	send=4;
-            	cateAjax(sendType, url, send);
+            	cateAjax("category", "POST", "/reservation/products", "categoryId=4", e.target.innerText);
+            	//moreType="category";
         	}
 			else if(e.target.innerText=="연극"){
-            	send=5;
-            	cateAjax(sendType, url, send);
+            	cateAjax("category", "POST", "/reservation/products", "categoryId=5", e.target.innerText);
+            	//moreType="category";
         	}
-         }		
+         }	 
 	});
 /* 	function removeActive(){
 		var anchor=document.querySelectorAll(".anchor");
