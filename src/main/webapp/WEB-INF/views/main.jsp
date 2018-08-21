@@ -137,21 +137,6 @@
         </a>
     </li>
     </script>
-
-    <script type="rv-template" id="itemList">
-        <li class="item">
-            <a href="" class="item_book">
-                <div class="item_preview">
-                    <img alt="{description}" class="img_thumb" src="{saveFileName}">
-                    <span class="img_border"></span>
-                </div>
-                <div class="event_txt">
-                    <h4 class="event_txt_tit"> <span>{description}</span> <small class="sm">{placeName}</small> </h4>
-                    <p class="event_txt_dsc">{content}</p>
-                </div>
-            </a>
-        </li>
-    </script>
     <script>
     	var promItem=document.querySelector("#promotionItem");
     	var promUl=document.querySelector(".visual_img");
@@ -171,8 +156,22 @@
       	  setTimeout(slide,5000);
       	}slide();
     </script>
+    <script type="rv-template" id="itemList">
+        <li class="item">
+            <a href="" class="item_book">
+                <div class="item_preview">
+                    <img alt="{description}" class="img_thumb" src="{saveFileName}">
+                    <span class="img_border"></span>
+                </div>
+                <div class="event_txt">
+                    <h4 class="event_txt_tit"> <span>{description}</span> <small class="sm">{placeName}</small> </h4>
+                    <p class="event_txt_dsc">{content}</p>
+                </div>
+            </a>
+        </li>
+    </script>
 	<script>
-	function addProdList(json, type, type2){
+	function addProdList(json, type){
 		var template = document.querySelector("#itemList").innerText;
 		
 		var leftUl=document.querySelector("#leftUl");
@@ -195,14 +194,8 @@
 				.replace("{placeName}",json.allProdList[i].placeName)
 				.replace("{content}",json.allProdList[i].content);
 			}
-			if(type2=="more"){
-				leftUl.insertAdjacentHTML('beforeend',left);
-				rightUl.insertAdjacentHTML('beforeend',right); 
-			}
-			else if(type2=="base"){
-				leftUl.innerHTML = left;
-				rightUl.innerHTML = right;
-			}
+			leftUl.innerHTML = left;
+			rightUl.innerHTML = right;
 		}
 		else if(type=="category"){
 			for(var i=0; i<2; i++){
@@ -219,36 +212,116 @@
 				.replace("{placeName}",json.cateProdList[i].placeName)
 				.replace("{content}",json.cateProdList[i].content);
 			}
-			if(type2=="more"){
+			leftUl.innerHTML = left;
+			rightUl.innerHTML = right;
+		}
+	}
+	function moreProduct(json, type){
+		var template = document.querySelector("#itemList").innerText;
+		
+		var leftUl=document.querySelector("#leftUl");
+		var rightUl=document.querySelector("#rightUl");
+		var left="";
+		var right=""; 
+		var length=0;
+		
+		if(type=="all"){
+			length=json.allProdList.length
+			console.log("길이: "+length);
+			if(length!=0){ //2 1 1 / 3 2 1 / 4 2 2
+				if(length<=2){
+					left+=template.replace("{description}",json.allProdList[0].description)
+					.replace("{saveFileName}",json.allProdList[0].saveFileName)
+					.replace("{description}",json.allProdList[0].description)
+					.replace("{placeName}",json.allProdList[0].placeName)
+					.replace("{content}",json.allProdList[0].content);
+					
+					if(length==2){
+						right+=template.replace("{description}",json.allProdList[1].description)
+						.replace("{saveFileName}",json.allProdList[1].saveFileName)
+						.replace("{description}",json.allProdList[1].description)
+						.replace("{placeName}",json.allProdList[1].placeName)
+						.replace("{content}",json.allProdList[1].content);
+					}
+				}
+				else{
+					for(var i=0; i<length-2; i++){
+						left+=template.replace("{description}",json.allProdList[i].description)
+						.replace("{saveFileName}",json.allProdList[i].saveFileName)
+						.replace("{description}",json.allProdList[i].description)
+						.replace("{placeName}",json.allProdList[i].placeName)
+						.replace("{content}",json.allProdList[i].content);
+					} 
+					for(var i=2; i<length; i++){
+						right+=template.replace("{description}",json.allProdList[i].description)
+						.replace("{saveFileName}",json.allProdList[i].saveFileName)
+						.replace("{description}",json.allProdList[i].description)
+						.replace("{placeName}",json.allProdList[i].placeName)
+						.replace("{content}",json.allProdList[i].content);
+					}
+				}
 				leftUl.insertAdjacentHTML('beforeend',left);
 				rightUl.insertAdjacentHTML('beforeend',right); 
 			}
-			else if(type2=="base"){
-				leftUl.innerHTML = left;
-				rightUl.innerHTML = right;
+		}
+		else if(type=="category"){
+			length=json.cateProdList.length
+			console.log("길이: "+length);
+			if(length!=0){ 
+				if(length<=2){
+					left+=template.replace("{description}",json.cateProdList[0].description)
+					.replace("{saveFileName}",json.cateProdList[0].saveFileName)
+					.replace("{description}",json.cateProdList[0].description)
+					.replace("{placeName}",json.cateProdList[0].placeName)
+					.replace("{content}",json.cateProdList[0].content);
+					
+					if(length==2){
+						right+=template.replace("{description}",json.cateProdList[1].description)
+						.replace("{saveFileName}",json.cateProdList[1].saveFileName)
+						.replace("{description}",json.cateProdList[1].description)
+						.replace("{placeName}",json.cateProdList[1].placeName)
+						.replace("{content}",json.cateProdList[1].content);
+					}
+				}
+				else{
+					for(var i=0; i<length-2; i++){
+						left+=template.replace("{description}",json.cateProdList[i].description)
+							.replace("{saveFileName}",json.cateProdList[i].saveFileName)
+							.replace("{description}",json.cateProdList[i].description)
+							.replace("{placeName}",json.cateProdList[i].placeName)
+							.replace("{content}",json.cateProdList[i].content);
+					} 
+					for(var i=2; i<length; i++){
+						right+=template.replace("{description}",json.cateProdList[i].description)
+						.replace("{saveFileName}",json.cateProdList[i].saveFileName)
+						.replace("{description}",json.cateProdList[i].description)
+						.replace("{placeName}",json.cateProdList[i].placeName)
+						.replace("{content}",json.cateProdList[i].content);
+					}
+				}
+				leftUl.insertAdjacentHTML('beforeend',left);
+				rightUl.insertAdjacentHTML('beforeend',right); 
 			}
 		}
 	}
 	
- 	function moreProductAjax(type, url, startNum){
+	var type="all";
+ 	function moreProductAjax(url, startNum){
 		var oReq=new XMLHttpRequest();
 		oReq.addEventListener("load",function(){
 			var json=JSON.parse(this.responseText);
-		//	addProdList(json, type, "more");	
+			moreProduct(json, type);
+			console.log("sn: "+startNum);
 		});
 		oReq.open("POST", url, true);
 		oReq.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		oReq.send("start="+startNum);
+		oReq.send(sendContent+"&start="+startNum);
  	}
+ 	var startNum=0;
  	var btn=document.querySelector(".btn");
-//	var startNum=0;
-//	var moreType="";
    	btn.addEventListener("click", function(){
-   			//0123/4567/891011/ ... 484950
-   		//	startNum+=4;
-   		//	console.log("startNum: "+startNum);
-		//	moreProductAjax(moreType, "/reservation/products", startNum);
-		//	console.log("moreType: "+moreType);
+		startNum+=4;
+   	   	moreProductAjax("/reservation/products", startNum);
    	}); 
 
    	function countProduct(json, cateName){
@@ -274,11 +347,11 @@
    		}
    	}
    	
-   	function cateAjax(type, sendType, url, sendContent, cateName){
+   	function cateAjax(type, sendType, url, cateName){
 		var oReq=new XMLHttpRequest();
 		oReq.addEventListener("load",function(){
 			var json=JSON.parse(this.responseText);
-			addProdList(json, type, "base");
+			addProdList(json, type);
 			countProduct(json, cateName);
 		});
 		oReq.open(sendType, url,true);
@@ -286,8 +359,12 @@
 		oReq.send(sendContent);
 	}
    	
+   	var sendContent="";
 	var cateTab=document.querySelector(".cateTab");
 	cateTab.addEventListener("click", function(e){
+		//startNum 초기화
+		startNum=0;
+		
         if (e.target.tagName === "A") {
         	console.log(e.target.innerText);
     		
@@ -300,41 +377,39 @@
         	
         	//카테고리 ajax
         	var btn=document.querySelector(".btn");
-            var startNum=0;
             
             if(e.target.innerText=="전체리스트"){
-            	cateAjax("all", "GET", "/reservation/products", null, e.target.innerText);
-           // 	moreType="all";
+            	type="all";
+ 				sendContent="";
+            	cateAjax("all", "GET", "/reservation/products", e.target.innerText);
         	}
             else if(e.target.innerText=="전시"){
-            	cateAjax("category", "POST", "/reservation/products", "categoryId=1", e.target.innerText);
- 			//	moreType="category";
+            	type="category";
+ 				sendContent="categoryId=1";
+ 				cateAjax("category", "POST", "/reservation/products", e.target.innerText);
         	}
         	else if(e.target.innerText=="뮤지컬"){
-            	cateAjax("category", "POST", "/reservation/products", "categoryId=2", e.target.innerText);
-            //	moreType="category";
+            	type="category";
+            	sendContent="categoryId=2";
+            	cateAjax("category", "POST", "/reservation/products", e.target.innerText);
         	}
         	else if(e.target.innerText=="콘서트"){
-            	cateAjax("category", "POST", "/reservation/products", "categoryId=3", e.target.innerText);
-            	//moreType="category";
+            	type="category";
+            	sendContent="categoryId=3";
+            	cateAjax("category", "POST", "/reservation/products", e.target.innerText);
         	}
 			else if(e.target.innerText=="클래식"){
-            	cateAjax("category", "POST", "/reservation/products", "categoryId=4", e.target.innerText);
-            	//moreType="category";
+            	type="category";
+            	sendContent="categoryId=4";
+            	cateAjax("category", "POST", "/reservation/products", e.target.innerText);
         	}
 			else if(e.target.innerText=="연극"){
-            	cateAjax("category", "POST", "/reservation/products", "categoryId=5", e.target.innerText);
-            	//moreType="category";
+            	type="category";
+            	sendContent="categoryId=5";
+            	cateAjax("category", "POST", "/reservation/products", e.target.innerText);
         	}
          }	 
 	});
-/* 	function removeActive(){
-		var anchor=document.querySelectorAll(".anchor");
-		for(var i=0, len=anchor.length; i<len; i++ ){
-			anchor[i].classList.remove("active");
-		}
-		//e.target.classList.add("active");
-	} */
 </script>
 </body>
 </html>
