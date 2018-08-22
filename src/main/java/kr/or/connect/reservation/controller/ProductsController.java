@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import kr.or.connect.reservation.dto.Count;
 import kr.or.connect.reservation.dto.Product;
 import kr.or.connect.reservation.service.ProductService;
 
@@ -20,18 +19,7 @@ import kr.or.connect.reservation.service.ProductService;
 public class ProductsController {
 	@Autowired
 	ProductService prodS;
-	
-/*	@RequestMapping(value="/allproducts" , method = {RequestMethod.GET, RequestMethod.POST})
-	public Map<String, Object> productList(@RequestParam(name="start", required=false, defaultValue="0") int start) {
-		
-		List<Product> allProdList=prodS.getAllProduct(start);
 
-		Map<String, Object> map = new HashMap<>();
-		map.put("allProdList", allProdList);
-		
-		return map;
-	}
-*/	
 	@RequestMapping(value="/products" , method = {RequestMethod.GET, RequestMethod.POST})
 	public Map<String, Object> productsList(@RequestParam(name="categoryId", required=false, defaultValue="0") int categoryId,
 											 @RequestParam(name="start", required=false, defaultValue="0") int start) {
@@ -39,12 +27,9 @@ public class ProductsController {
 		List<Product> allProdList=prodS.getAllProduct(start);
 		List<Product> cateProdList=prodS.getCateProduct(categoryId, start);
 
-		List<Count> cateCntList=prodS.getCateCnt();
-		
 		Map<String, Object> map = new HashMap<>();
 		map.put("allProdList", allProdList);
 		map.put("cateProdList", cateProdList);
-		map.put("cateCntList", cateCntList);
 		
 		return map;
 	}

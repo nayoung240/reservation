@@ -35,8 +35,6 @@ public class ReservationController {
 	@Autowired
 	ProductService prodS;
 	@Autowired
-	DisplayInfoService dispS;
-	@Autowired
 	PromotionsService promS;
 	
 	@RequestMapping(value="/main" , method = {RequestMethod.GET, RequestMethod.POST})
@@ -44,7 +42,7 @@ public class ReservationController {
 					@RequestParam(name="start", required=false, defaultValue="0") int start,
 					ModelMap mm) {
 		
-		List<Category> categoryList=cateS.getCategories();
+		List<Category> categoryList=cateS.getCategoriesApi();
 		
 		//개수
 		int allCnt=prodS.getAllCount();		

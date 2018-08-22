@@ -18,7 +18,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
-import kr.or.connect.reservation.dto.Count;
 import kr.or.connect.reservation.dto.Product;
 
 @Repository
@@ -79,25 +78,6 @@ public class ProductDao {
 	
 	public int allCount() {
 		return jdbc.queryForObject(ALL_COUNT, Collections.emptyMap(), Integer.class);
-	}
-	
-	public int cateCount(Integer categoryId) {
-		Map<String, Integer> params=new HashMap<>();
-		params.put("categoryId", categoryId);
-		return jdbc.queryForObject(CATE_COUNT, params, Integer.class);
-	}
-	
-
-	public List<Count> cateCntList(){
-		return jdbc.query(CATE_CNT, new RowMapper<Count>() {
-
-			@Override
-			public Count mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Count c=new Count();
-				c.setCateCnt(rs.getInt(1));
-				return c;
-			}
-		});
 	}
 
 }

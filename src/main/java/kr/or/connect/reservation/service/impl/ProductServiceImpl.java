@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.connect.reservation.dao.ProductDao;
-import kr.or.connect.reservation.dto.Count;
 import kr.or.connect.reservation.dto.Product;
 import kr.or.connect.reservation.service.ProductService;
 
@@ -22,16 +21,6 @@ public class ProductServiceImpl implements ProductService {
 		return proddao.allCount();
 	}
 
-	@Override
-	public int getCateCount(Integer categoryId) {
-		return proddao.cateCount(categoryId);
-	}
-	
-	@Override
-	public List<Count> getCateCnt() {
-		return proddao.cateCntList();
-	}
-	
 	@Override
 	@Transactional
 	public List<Product> getAllProduct(Integer start) {
