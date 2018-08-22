@@ -2,6 +2,8 @@ package kr.or.connect.reservation.dao;
 
 import static kr.or.connect.reservation.dao.ReservationDaoSqls.*;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,14 +24,19 @@ public class CategoryDao{
 	
 	public CategoryDao(DataSource dataSource) {
 		this.jdbc=new NamedParameterJdbcTemplate(dataSource);
-		this.insertAction=new SimpleJdbcInsert(dataSource)
-						.withTableName("category")
-						.usingGeneratedKeyColumns("id");
 	}
 	
-	private RowMapper<Category> category=BeanPropertyRowMapper.newInstance(Category.class);
 	public List<Category> categoryList(){
-		return jdbc.query(CATEGORY_ALL, category);
-	}
-	
+		return jdbc.query(CATEGORIES, new RowMapper<Category>() {
+
+			@Override
+			public Category mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Category c=new Category();
+				c.setId(rs.getInt(1));
+				c.setName(rs.getString(2));
+				c.setCount(rs.getInt(3));
+				return c;
+			}
+		}); 
+	}	
 }

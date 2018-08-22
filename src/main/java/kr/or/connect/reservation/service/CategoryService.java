@@ -8,5 +8,5 @@ import kr.or.connect.reservation.dto.Category;
 
 @Service
 public interface CategoryService {
-	public List<Category> getCategories();
+	public List<Category> getCategoriesApi();
 }

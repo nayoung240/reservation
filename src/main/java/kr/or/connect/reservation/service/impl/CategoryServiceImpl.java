@@ -13,9 +13,9 @@ import kr.or.connect.reservation.service.CategoryService;
 public class CategoryServiceImpl implements CategoryService {
 	@Autowired
 	CategoryDao catedao;
-	
+
 	@Override
-	public List<Category> getCategories() {
+	public List<Category> getCategoriesApi() {
 		List<Category> list=catedao.categoryList();
 		return list;
 	}

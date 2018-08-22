@@ -2,13 +2,10 @@ package kr.or.connect.reservation.dao;
 
 public class ReservationDaoSqls {
 	//category
-	public static final String CATEGORY_ALL="select id, name from category";
+	public static final String CATEGORIES="select c.id, c.name, count(*) from category c left join product p on c.id=p.category_id group by p.category_id";
 	
 	//main t
 	public static final String ALL_COUNT="select count(*) from product";
-	public static final String CATE_COUNT="select count(*) from product where category_id= :categoryId";
-	public static final String CATE_CNT="select count(*) from product group by category_id";	
-	
 	public static final String ALL_PRODUCT="select p.id, p.category_id, p.description, p.content, d.place_name, pi.file_id, f.save_file_name from product p left join display_info d on p.id=d.product_id left join product_image pi on p.id=pi.product_id left join file_info f on f.id=pi.file_id where type='th' limit :start, :limit";
 	public static final String CATE_PRODUCT="select p.id, p.category_id, p.description, p.content, d.place_name, pi.file_id, f.save_file_name from product p left join display_info d on p.id=d.product_id left join product_image pi on p.id=pi.product_id left join file_info f on f.id=pi.file_id where type='th' and category_id= :categoryId limit :start, :limit";
 	public static final String ALL_PROMOTION_IMAGES="select f.save_file_name from product_image pi left join file_info f on pi.file_id=f.id where type='ma'";

@@ -216,6 +216,18 @@
 			rightUl.innerHTML = right;
 		}
 	}
+	
+   	function cateAjax(type, sendType, url){
+		var oReq=new XMLHttpRequest();
+		oReq.addEventListener("load",function(){
+			var json=JSON.parse(this.responseText);
+			addProdList(json, type);
+		});
+		oReq.open(sendType, url,true);
+		oReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		oReq.send(sendContent);
+	}
+   	
 	function moreProduct(json, type){
 		var template = document.querySelector("#itemList").innerText;
 		
@@ -323,40 +335,39 @@
 		startNum+=4;
    	   	moreProductAjax("/reservation/products", startNum);
    	}); 
-
+   	
    	function countProduct(json, cateName){
    		var pink=document.querySelector(".pink");
-   		
-   		if(cateName=="전체리스트"){
+
+    		if(cateName=="전체리스트"){
    			pink.innerText=${allCnt};
    		}
    		else if(cateName=="전시"){
-   			pink.innerText=json.cateCntList[0].cateCnt;
+   			pink.innerText=json.cateList[0].count;
    		}
    		else if(cateName=="뮤지컬"){
-   			pink.innerText=json.cateCntList[1].cateCnt;
+   			pink.innerText=json.cateList[1].count;
    		}
    		else if(cateName=="콘서트"){
-   			pink.innerText=json.cateCntList[2].cateCnt;
+   			pink.innerText=json.cateList[2].count;
    		}
    		else if(cateName=="클래식"){
-   			pink.innerText=json.cateCntList[3].cateCnt;
+   			pink.innerText=json.cateList[3].count;
    		}
    		else if(cateName=="연극"){
-   			pink.innerText=json.cateCntList[4].cateCnt;
-   		}
+   			pink.innerText=json.cateList[4].count;
+   		} 
    	}
    	
-   	function cateAjax(type, sendType, url, cateName){
+   	function cateCntAjax(url, cateName){
 		var oReq=new XMLHttpRequest();
 		oReq.addEventListener("load",function(){
 			var json=JSON.parse(this.responseText);
-			addProdList(json, type);
 			countProduct(json, cateName);
 		});
-		oReq.open(sendType, url,true);
+		oReq.open("GET", url, true);
 		oReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		oReq.send(sendContent);
+		oReq.send(null);
 	}
    	
    	var sendContent="";
@@ -381,35 +392,43 @@
             if(e.target.innerText=="전체리스트"){
             	type="all";
  				sendContent="";
-            	cateAjax("all", "GET", "/reservation/products", e.target.innerText);
+ 				cateAjax("all", "GET", "/reservation/products", e.target.innerText);
+ 				cateCntAjax("/reservation/api/categories", e.target.innerText);
         	}
             else if(e.target.innerText=="전시"){
             	type="category";
  				sendContent="categoryId=1";
- 				cateAjax("category", "POST", "/reservation/products", e.target.innerText);
+ 				cateAjax("category", "POST", "/reservation/products");
+ 				cateCntAjax("/reservation/api/categories", e.target.innerText);
         	}
         	else if(e.target.innerText=="뮤지컬"){
             	type="category";
             	sendContent="categoryId=2";
-            	cateAjax("category", "POST", "/reservation/products", e.target.innerText);
+            	cateAjax("category", "POST", "/reservation/products");
+            	cateCntAjax("/reservation/api/categories", e.target.innerText);
         	}
         	else if(e.target.innerText=="콘서트"){
             	type="category";
             	sendContent="categoryId=3";
-            	cateAjax("category", "POST", "/reservation/products", e.target.innerText);
+            	cateAjax("category", "POST", "/reservation/products");
+            	cateCntAjax("/reservation/api/categories", e.target.innerText);
         	}
 			else if(e.target.innerText=="클래식"){
             	type="category";
             	sendContent="categoryId=4";
-            	cateAjax("category", "POST", "/reservation/products", e.target.innerText);
+            	cateAjax("category", "POST", "/reservation/products");
+            	cateCntAjax("/reservation/api/categories", e.target.innerText);
         	}
 			else if(e.target.innerText=="연극"){
             	type="category";
             	sendContent="categoryId=5";
-            	cateAjax("category", "POST", "/reservation/products", e.target.innerText);
+            	cateAjax("category", "POST", "/reservation/products");
+            	cateCntAjax("/reservation/api/categories", e.target.innerText);
         	}
          }	 
 	});
+	
+
 </script>
 </body>
 </html>
