@@ -9,9 +9,7 @@ public class Product {
 	private int categoryId;
 	private String description;
 	private String content;
-	private String event;
-	private Date createDate;
-	private Date modifyDate;
+
 	
 	//display_info 테이블
 	private String placeName;
@@ -65,29 +63,11 @@ public class Product {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getEvent() {
-		return event;
-	}
-	public void setEvent(String event) {
-		this.event = event;
-	}
-	public Date getCreateDate() {
-		return createDate;
-	}
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-	public Date getModifyDate() {
-		return modifyDate;
-	}
-	public void setModifyDate(Date modifyDate) {
-		this.modifyDate = modifyDate;
-	}
+
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", categoryId=" + categoryId + ", description=" + description + ", content="
-				+ content + ", event=" + event + ", createDate=" + createDate + ", modifyDate=" + modifyDate
-				+ ", placeName=" + placeName + ", fileId=" + fileId + ", saveFileName="
+				+ content + ", placeName=" + placeName + ", fileId=" + fileId + ", saveFileName="
 				+ saveFileName + "]";
 	}
 	
