@@ -21,10 +21,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kr.or.connect.reservation.dto.Category;
 import kr.or.connect.reservation.dto.DisplayInfo;
 import kr.or.connect.reservation.dto.Product;
-import kr.or.connect.reservation.dto.Promotions;
+import kr.or.connect.reservation.dto.Promotion;
+import kr.or.connect.reservation.dto.PromotionImg;
 import kr.or.connect.reservation.service.CategoryService;
 import kr.or.connect.reservation.service.DisplayInfoService;
-import kr.or.connect.reservation.service.PromotionsService;
+import kr.or.connect.reservation.service.PromotionService;
 import kr.or.connect.reservation.service.ProductService;
 
 
@@ -35,7 +36,7 @@ public class ReservationController {
 	@Autowired
 	ProductService prodS;
 	@Autowired
-	PromotionsService promS;
+	PromotionService promS;
 	
 	@RequestMapping(value="/main" , method = {RequestMethod.GET, RequestMethod.POST})
 	public String products(
@@ -51,7 +52,7 @@ public class ReservationController {
 		List<Product> allProdList=prodS.getAllProduct(start);
 
 		//promotion
-		List<Promotions> allPromList=promS.getPromotionsImages();
+		List<PromotionImg> allPromList=promS.getPromotionsImages();
 		
 		//카테고리
 		mm.addAttribute("categoryList", categoryList);	

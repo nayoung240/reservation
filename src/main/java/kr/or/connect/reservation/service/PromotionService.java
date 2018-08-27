@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import kr.or.connect.reservation.dto.Promotions;
+import kr.or.connect.reservation.dto.Promotion;
+import kr.or.connect.reservation.dto.PromotionImg;
 
 @Service
-public interface PromotionsService {
-	public List<Promotions> getPromotionsImages();
+public interface PromotionService {
+	public List<Promotion> getPromotions();
+	public List<PromotionImg> getPromotionsImages();
 }

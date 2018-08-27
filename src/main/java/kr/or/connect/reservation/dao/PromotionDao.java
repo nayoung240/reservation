@@ -16,23 +16,39 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
-import kr.or.connect.reservation.dto.Product;
-import kr.or.connect.reservation.dto.Promotions;
+import kr.or.connect.reservation.dto.Promotion;
+import kr.or.connect.reservation.dto.PromotionImg;
 
 @Repository
-public class PromotionsDao {
+public class PromotionDao {
 	private NamedParameterJdbcTemplate jdbc;
 	
-	public PromotionsDao(DataSource dataSource) {
+	public PromotionDao(DataSource dataSource) {
 		this.jdbc=new NamedParameterJdbcTemplate(dataSource);
 	}
 	
-	public List<Promotions> promotionList(){
-		return jdbc.query(SOME_PROMOTION_IMAGES, new RowMapper<Promotions>() {
+	public List<PromotionImg> promotionImgList(){
+		return jdbc.query(SOME_PROMOTION_IMAGES, new RowMapper<PromotionImg>() {
 			@Override
-			public Promotions mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Promotions p=new Promotions();
+			public PromotionImg mapRow(ResultSet rs, int rowNum) throws SQLException {
+				PromotionImg p=new PromotionImg();
 				p.setSaveFileName(rs.getString(1));
+				return p;
+			}
+		});
+	}
+	
+	public List<Promotion> promotionList(){
+		return jdbc.query(API_PROMOTION, new RowMapper<Promotion>() {
+			@Override
+			public Promotion mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Promotion p=new Promotion();
+				p.setId(rs.getInt(1));
+				p.setProductId(rs.getInt(2));
+				p.setCategoryId(rs.getInt(3));
+				p.setCategoryName(rs.getString(4));
+				p.setDescription(rs.getString(5));
+				p.setProductImageId(rs.getInt(6));
 				return p;
 			}
 		});
