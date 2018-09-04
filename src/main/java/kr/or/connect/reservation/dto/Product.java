@@ -4,20 +4,12 @@ import java.util.Date;
 import java.util.List;
 
 public class Product {
-	//product 테이블
 	private int id;
 	private int categoryId;
 	private String description;
 	private String content;
-
-	
-	//display_info 테이블
 	private String placeName;
-	
-	//product_image 테이블
 	private int fileId;
-	
-	//file_info 테이블
 	private String saveFileName;
 	
 	public int getFileId() {

@@ -19,6 +19,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import kr.or.connect.reservation.dto.Product;
+import kr.or.connect.reservation.dto.ProductDetail;
 
 @Repository
 public class ProductDao {

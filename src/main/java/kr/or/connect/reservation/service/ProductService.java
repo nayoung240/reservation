@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import kr.or.connect.reservation.dto.Product;
+import kr.or.connect.reservation.dto.ProductDetail;
 
 @Service
 public interface ProductService {
@@ -15,5 +16,5 @@ public interface ProductService {
 	
 	public List<Product> getAllProduct(Integer start);	
 	public List<Product> getCateProduct(Integer categoryId, Integer start);
-
+	
 }

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.connect.reservation.dao.ProductDao;
 import kr.or.connect.reservation.dto.Product;
+import kr.or.connect.reservation.dto.ProductDetail;
 import kr.or.connect.reservation.service.ProductService;
 
 @Service
