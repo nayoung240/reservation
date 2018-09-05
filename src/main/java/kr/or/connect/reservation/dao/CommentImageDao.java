@@ -33,9 +33,10 @@ public class CommentImageDao {
 						.withTableName("display_info")
 						.usingGeneratedKeyColumns("id");*/
 	}
-	
-	//ruci.id, ruci.reservation_info_id, ruci.reservation_uer_comment_id, ruci.file_id, 
-	//fi.file_name, fi.save_file_name, fi.content_type, fi.delete_flag, fi.create_date, fi.modify_date
+
+	// ruci.id, ruci.reservation_info_id, ruci.reservation_user_comment_id, ruci.file_id, fi.file_name, 
+	//fi.save_file_name, fi.content_type, fi.delete_flag, fi.create_date, fi.modify_date 
+	//from reservation_user_comment_image ruci left join file_info fi on fi.id=ruci.file_id where ruci.reservation_info_id= :displayInfoId
 	public List<CommentImage> commentImageList(Integer displayInfoId){
 		Map<String, Integer> params=new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
@@ -49,11 +50,11 @@ public class CommentImageDao {
 				p.setReservationUserCommentId(rs.getInt(3));
 				p.setFileId(rs.getInt(4));
 				p.setFileName(rs.getString(5));
-				p.setSaveFileName(rs.getString(5));
-				p.setContentType(rs.getString(6));
-				p.setDeleteFlag(rs.getInt(7));
-				p.setCreateDate(rs.getDate(8));
-				p.setModifyDate(rs.getDate(9));
+				p.setSaveFileName(rs.getString(6));
+				p.setContentType(rs.getString(7));
+				p.setDeleteFlag(rs.getInt(8));
+				p.setCreateDate(rs.getDate(9));
+				p.setModifyDate(rs.getDate(10));
 				return p;
 			}
 		});
