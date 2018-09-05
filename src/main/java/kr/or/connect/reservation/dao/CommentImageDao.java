@@ -35,7 +35,7 @@ public class CommentImageDao {
 	}
 	
 	//ruci.id, ruci.reservation_info_id, ruci.reservation_uer_comment_id, ruci.file_id, 
-	//fi.content_type, fi.delete_flag, fi.create_date, fi.modify_date
+	//fi.file_name, fi.save_file_name, fi.content_type, fi.delete_flag, fi.create_date, fi.modify_date
 	public List<CommentImage> commentImageList(Integer displayInfoId){
 		Map<String, Integer> params=new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
@@ -48,10 +48,12 @@ public class CommentImageDao {
 				p.setReservationInfoId(rs.getInt(2));
 				p.setReservationUserCommentId(rs.getInt(3));
 				p.setFileId(rs.getInt(4));
-				p.setContentType(rs.getString(5));
-				p.setDeleteFlag(rs.getInt(6));
-				p.setCreateDate(rs.getDate(7));
-				p.setModifyDate(rs.getDate(8));
+				p.setFileName(rs.getString(5));
+				p.setSaveFileName(rs.getString(5));
+				p.setContentType(rs.getString(6));
+				p.setDeleteFlag(rs.getInt(7));
+				p.setCreateDate(rs.getDate(8));
+				p.setModifyDate(rs.getDate(9));
 				return p;
 			}
 		});
