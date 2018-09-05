@@ -11,6 +11,7 @@ import kr.or.connect.reservation.dto.DisplayImage;
 import kr.or.connect.reservation.dto.Product;
 import kr.or.connect.reservation.dto.ProductDetail;
 import kr.or.connect.reservation.dto.ProductImage;
+import kr.or.connect.reservation.dto.ProductPrice;
 
 @Service
 public interface DetailService {
@@ -21,6 +22,8 @@ public interface DetailService {
 	
 	public List<Comment> getComments(int displayInfoId);
 	public List<CommentImage> getCommentImages(int displayInfoId);
+	
+	public List<ProductPrice> getPrices(int displayInfoId);
 	
 	
 }

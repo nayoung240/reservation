@@ -13,12 +13,14 @@ import kr.or.connect.reservation.dao.DisplayImageDao;
 import kr.or.connect.reservation.dao.ProductDao;
 import kr.or.connect.reservation.dao.ProductDetailDao;
 import kr.or.connect.reservation.dao.ProductImageDao;
+import kr.or.connect.reservation.dao.ProductPriceDao;
 import kr.or.connect.reservation.dto.Comment;
 import kr.or.connect.reservation.dto.CommentImage;
 import kr.or.connect.reservation.dto.DisplayImage;
 import kr.or.connect.reservation.dto.Product;
 import kr.or.connect.reservation.dto.ProductDetail;
 import kr.or.connect.reservation.dto.ProductImage;
+import kr.or.connect.reservation.dto.ProductPrice;
 import kr.or.connect.reservation.service.DetailService;
 import kr.or.connect.reservation.service.ProductService;
 
@@ -34,6 +36,8 @@ public class DetailServiceImpl implements DetailService {
 	CommentDao comdao;
 	@Autowired
 	CommentImageDao comidao;
+	@Autowired
+	ProductPriceDao prodpdao;
 	
 	@Override
 	@Transactional
@@ -67,6 +71,13 @@ public class DetailServiceImpl implements DetailService {
 	@Transactional
 	public List<CommentImage> getCommentImages(int displayInfoId) {
 		List<CommentImage> list=comidao.commentImageList(displayInfoId);
+		return list;
+	}
+
+	@Override
+	@Transactional
+	public List<ProductPrice> getPrices(int displayInfoId) {
+		List<ProductPrice> list=prodpdao.priceList(displayInfoId);
 		return list;
 	}
 }

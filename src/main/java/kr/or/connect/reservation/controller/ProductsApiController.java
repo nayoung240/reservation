@@ -19,6 +19,7 @@ import kr.or.connect.reservation.dto.DisplayImage;
 import kr.or.connect.reservation.dto.Product;
 import kr.or.connect.reservation.dto.ProductDetail;
 import kr.or.connect.reservation.dto.ProductImage;
+import kr.or.connect.reservation.dto.ProductPrice;
 import kr.or.connect.reservation.service.DetailService;
 import kr.or.connect.reservation.service.ProductService;
 
@@ -60,7 +61,7 @@ public class ProductsApiController {
 		List<DisplayImage> displayImages=detS.getDisplayImage(displayInfoId);
 		List<Comment> comment=detS.getComments(displayInfoId);
 		List<CommentImage> reservationUserCommentImages=detS.getCommentImages(displayInfoId);
-		
+		List<ProductPrice> productPrices=detS.getPrices(displayInfoId);
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("product", product);
@@ -69,6 +70,7 @@ public class ProductsApiController {
 		map.put("comment", comment);
 		map.put("reservationUserCommentImages", reservationUserCommentImages);
 		map.put("avgScore", 3.0);
+		map.put("productPrices", productPrices);
 		return map;
 	}
 }
