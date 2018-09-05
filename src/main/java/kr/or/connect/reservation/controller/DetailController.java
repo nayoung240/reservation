@@ -19,54 +19,33 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.connect.reservation.dto.Category;
-import kr.or.connect.reservation.dto.DisplayInfo;
+import kr.or.connect.reservation.dto.DisplayImage;
 import kr.or.connect.reservation.dto.Product;
+import kr.or.connect.reservation.dto.ProductDetail;
+import kr.or.connect.reservation.dto.ProductImage;
 import kr.or.connect.reservation.dto.Promotion;
 import kr.or.connect.reservation.dto.PromotionImg;
 import kr.or.connect.reservation.service.CategoryService;
-import kr.or.connect.reservation.service.DisplayInfoService;
+import kr.or.connect.reservation.service.DetailService;
 import kr.or.connect.reservation.service.PromotionService;
 import kr.or.connect.reservation.service.ProductService;
 
 
 @Controller
-public class ReservationController {
+public class DetailController {
 	@Autowired
-	CategoryService cateS;
-	@Autowired
-	ProductService prodS;
-	@Autowired
-	PromotionService promS;
+	DetailService detaS;
 	
-	@RequestMapping(value="/main" , method = {RequestMethod.GET, RequestMethod.POST})
-	public String products(
-					@RequestParam(name="start", required=false, defaultValue="0") int start,
+	@RequestMapping(value="/detail" , method = {RequestMethod.GET, RequestMethod.POST})
+	public String detail(
+					@RequestParam(name="id", required=false, defaultValue="0") int id,
 					ModelMap mm) {
-		
-		List<Category> categoryList=cateS.getCategoriesApi();
-		
-		//개수
-		int allCnt=prodS.getAllCount();		
-		
-		//product
-		List<Product> allProdList=prodS.getAllProduct(start);
+		List<ProductDetail> product=detaS.getDetailProduct(id);
+		List<ProductImage> productImage=detaS.getProductImage(id);
 
-		//promotion
-		List<PromotionImg> allPromList=promS.getPromotionsImages();
-		
-		//카테고리
-		mm.addAttribute("categoryList", categoryList);	
-		
-		//개수
-		mm.addAttribute("allCnt", allCnt);
-		
-		//product
-		mm.addAttribute("allProdList", allProdList);
-		
-		//promotion
-		mm.addAttribute("allPromList", allPromList);
-		
-		return "main";
+		mm.addAttribute("product", product);
+		mm.addAttribute("productImage", productImage);
+
+		return "detail";
 	}
-	
 }
