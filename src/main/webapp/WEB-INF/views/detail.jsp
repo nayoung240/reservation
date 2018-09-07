@@ -270,7 +270,26 @@
         </div>
     </footer>
     <div id="photoviwer"></div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
+    $(document).ready(function(){
+        $(".bk_more").click(function(){
+            $(".store_details").toggleClass("close3");
+             if($("._close").css("display") == "none"){   
+    		    $('._close').css("display", "block");   
+		    } 
+            else{
+            $('._close').css("display", "none");
+            }
+            if($("._open").css("display") == "block"){   
+    		    $('._open').css("display", "none");   
+		    } 
+            else{
+            $('._open').css("display", "block");
+            } 
+        });
+    });
     </script>
 </body>
 </html>
