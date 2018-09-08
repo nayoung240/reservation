@@ -40,7 +40,7 @@
                         <div class="bg_pagination"></div>
                         <div class="figure_pagination">
                             <span class="num">1</span>
-                            <span class="num off">/ <span>2</span></span>
+                            <span class="num off">/ <span>${etCount+1} </span></span>
                         </div>
                     </div>
                     <div class="group_visual">
@@ -85,6 +85,7 @@
                                     </li>
                                 </ul>
                             </div>
+                            <c:if test="${etCount==1}">
                             <div class="prev">
                                 <div class="prev_inn">
                                     <a href="#" class="btn_prev" title="이전">
@@ -100,6 +101,7 @@
                                     </a>
                                 </div>
                             </div>
+                            </c:if>
                         </div>
                     </div>
                     <div class="group_btn_goto"  style="display: none;">
@@ -290,6 +292,26 @@
             } 
         });
     });
+    </script>
+    <script>
+/* 	var type="all";
+ 	function moreProductAjax(url, startNum){
+		var oReq=new XMLHttpRequest();
+		oReq.addEventListener("load",function(){
+			var json=JSON.parse(this.responseText);
+			moreProduct(json, type);
+			console.log("sn: "+startNum);
+		});
+		oReq.open("POST", url, true);
+		oReq.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		oReq.send(sendContent+"&start="+startNum);
+ 	}
+ 	var startNum=0;
+ 	var btn=document.querySelector(".btn");
+   	btn.addEventListener("click", function(){
+		startNum+=4;
+   	   	moreProductAjax("/reservation/products", startNum);
+   	});  */
     </script>
 </body>
 </html>

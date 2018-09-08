@@ -80,4 +80,18 @@ public class DetailServiceImpl implements DetailService {
 		List<ProductPrice> list=prodpdao.priceList(displayInfoId);
 		return list;
 	}
+
+	@Override
+	@Transactional
+	public List<ProductImage> getEtImage(Integer displayInfoId) {
+		List<ProductImage> list=prodidao.etImageList(displayInfoId);
+		return list;
+	}
+
+	@Override
+	@Transactional
+	public int getEtCount(Integer displayInfoId) {
+		return prodidao.etImageCount(displayInfoId);
+	}
+	
 }

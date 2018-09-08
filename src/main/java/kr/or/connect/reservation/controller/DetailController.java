@@ -42,10 +42,13 @@ public class DetailController {
 					ModelMap mm) {
 		List<ProductDetail> product=detaS.getDetailProduct(id);
 		List<ProductImage> productImage=detaS.getProductImage(id);
+		int etCount=detaS.getEtCount(id);
 
-		mm.addAttribute("product", product);
+		mm.addAttribute("product", product); 
 		mm.addAttribute("productImage", productImage);
-
+//		if(etCount>0) {
+			mm.addAttribute("etCount", etCount);
+//		}
 		return "detail";
 	}
 }

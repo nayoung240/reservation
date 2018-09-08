@@ -17,6 +17,8 @@ import kr.or.connect.reservation.dto.ProductPrice;
 public interface DetailService {
 	public List<ProductDetail> getDetailProduct(Integer displayInfoId);
 	public List<ProductImage> getProductImage(Integer displayInfoId);
+	public List<ProductImage> getEtImage(Integer displayInfoId);
+	public int getEtCount(Integer displayInfoId);
 	
 	public List<DisplayImage> getDisplayImage(int displayInfoId);
 	
