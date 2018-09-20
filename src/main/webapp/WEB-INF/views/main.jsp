@@ -78,7 +78,7 @@
                     <ul class="lst_event_box" id="leftUl">
                          <c:forEach var="allList" items="${allProdList}" begin="0" end="1" step="1">
 		                   <li class="item">
-                            	<a href="/reservation/detail?id=${allList.id}" class="item_book">
+                            	<a href="detail?id=${allList.id}" class="item_book">
                                 <div class="item_preview"> 
                                 	<img alt="${allList.description}" class="img_thumb" src="${allList.saveFileName}">
                                 	<span class="img_border"></span> 
@@ -94,7 +94,7 @@
                     <ul class="lst_event_box" id="rightUl">
 					<c:forEach var="allList" items="${allProdList}" begin="2" end="3" step="1">
 		                   <li class="item">
-                            	<a href="detail.html" class="item_book">
+                            	<a href="detail?id=${allList.id}" class="item_book">
                                 <div class="item_preview"> 
                                 	<img alt="${allList.description}" class="img_thumb" src="${allList.saveFileName}">
                                 	<span class="img_border"></span> 

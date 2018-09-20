@@ -14,18 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import kr.or.connect.reservation.dto.Category;
 import kr.or.connect.reservation.dto.Product;
-import kr.or.connect.reservation.service.CategoryService;
-import kr.or.connect.reservation.service.ProductService;
+import kr.or.connect.reservation.service.MainService;
 
 @RestController
 public class CategoryApiController {
 	@Autowired
-	CategoryService cateS;
+	MainService mainS;
 
 	@RequestMapping(value="/api/categories" , method = {RequestMethod.GET, RequestMethod.POST})
 	public Map<String, Object> productsList() {
 		
-		List<Category> cateList=cateS.getCategoriesApi();
+		List<Category> cateList=mainS.getCategoriesApi();
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("cateList", cateList);

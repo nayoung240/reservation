@@ -23,35 +23,29 @@ import kr.or.connect.reservation.dto.DisplayImage;
 import kr.or.connect.reservation.dto.Product;
 import kr.or.connect.reservation.dto.Promotion;
 import kr.or.connect.reservation.dto.PromotionImg;
-import kr.or.connect.reservation.service.CategoryService;
-import kr.or.connect.reservation.service.PromotionService;
-import kr.or.connect.reservation.service.ProductService;
+import kr.or.connect.reservation.service.MainService;
 
 
 @Controller
 public class MainController {
 	@Autowired
-	CategoryService cateS;
-	@Autowired
-	ProductService prodS;
-	@Autowired
-	PromotionService promS;
+	MainService mainS;
 	
 	@RequestMapping(value="/main" , method = {RequestMethod.GET, RequestMethod.POST})
 	public String products(
 					@RequestParam(name="start", required=false, defaultValue="0") int start,
 					ModelMap mm) {
 		
-		List<Category> categoryList=cateS.getCategoriesApi();
+		List<Category> categoryList=mainS.getCategoriesApi();
 		
 		//개수
-		int allCnt=prodS.getAllCount();		
+		int allCnt=mainS.getAllCount();		
 		
 		//product
-		List<Product> allProdList=prodS.getAllProduct(start);
+		List<Product> allProdList=mainS.getAllProduct(start);
 
 		//promotion
-		List<PromotionImg> allPromList=promS.getPromotionsImages();
+		List<PromotionImg> allPromList=mainS.getPromotionsImages();
 		
 		//카테고리
 		mm.addAttribute("categoryList", categoryList);	

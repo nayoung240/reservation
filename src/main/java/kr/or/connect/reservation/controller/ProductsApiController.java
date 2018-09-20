@@ -21,20 +21,34 @@ import kr.or.connect.reservation.dto.ProductDetail;
 import kr.or.connect.reservation.dto.ProductImage;
 import kr.or.connect.reservation.dto.ProductPrice;
 import kr.or.connect.reservation.service.DetailService;
-import kr.or.connect.reservation.service.ProductService;
+import kr.or.connect.reservation.service.MainService;
 
 @RestController
 public class ProductsApiController {
 	@Autowired
-	ProductService prodS;
+	MainService mainS;
 	@Autowired
 	DetailService detS;
+	
+	@RequestMapping(value="/products" , method = {RequestMethod.GET, RequestMethod.POST})
+	public Map<String, Object> productsMainList(@RequestParam(name="categoryId", required=false, defaultValue="0") int categoryId,
+											 @RequestParam(name="start", required=false, defaultValue="0") int start) {
+		
+		List<Product> allProdList=mainS.getAllProduct(start);
+		List<Product> cateProdList=mainS.getCateProduct(categoryId, start);
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("allProdList", allProdList);
+		map.put("cateProdList", cateProdList);
+		
+		return map;
+	}
 	
 	@RequestMapping(value="/api/products" , method = {RequestMethod.GET, RequestMethod.POST})
 	public Map<String, Object> productsList(@RequestParam(name="categoryId", required=false, defaultValue="0") int categoryId,
 											 @RequestParam(name="start", required=false, defaultValue="0") int start) {
 		
-		List<Product> cateProdList=prodS.getCateProduct(categoryId, start);
+		List<Product> cateProdList=mainS.getCateProduct(categoryId, start);
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("cateProdList", cateProdList);
@@ -45,7 +59,7 @@ public class ProductsApiController {
 	@RequestMapping(value="/api/products/{cateId}" , method = {RequestMethod.GET})
 	public Map<String, Object> cateProductsList(@PathVariable(name="cateId") int cateId) {
 		
-		List<Product> cateProdList=prodS.getCateProduct(cateId, 0);
+		List<Product> cateProdList=mainS.getCateProduct(cateId, 0);
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("cateProdList", cateProdList);
