@@ -59,4 +59,25 @@ public class ProductImageDao {
 			}
 		});
 	}
+	
+	public List<ProductImage> etImageList(Integer displayInfoId){
+		Map<String, Integer> params=new HashMap<>();
+		params.put("displayInfoId", displayInfoId);
+		return jdbc.query(DETAIL_ET_IMAGES, params, new RowMapper<ProductImage>() {
+
+			@Override
+			public ProductImage mapRow(ResultSet rs, int rowNum) throws SQLException {
+				ProductImage p = new ProductImage();
+				p.setSaveFileName(rs.getString(1));
+				return p;
+			}
+		});
+	}
+	
+	public int etImageCount(Integer displayInfoId){
+		Map<String, Integer> params=new HashMap<>();
+		params.put("displayInfoId", displayInfoId);
+		return jdbc.queryForObject(DETAIL_ET_COUNT, params, Integer.class);
+	}
+
 }

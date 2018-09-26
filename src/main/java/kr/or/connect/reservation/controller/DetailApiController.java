@@ -21,21 +21,45 @@ import kr.or.connect.reservation.dto.ProductDetail;
 import kr.or.connect.reservation.dto.ProductImage;
 import kr.or.connect.reservation.dto.ProductPrice;
 import kr.or.connect.reservation.service.DetailService;
-import kr.or.connect.reservation.service.ProductService;
 
 @RestController
 public class DetailApiController {
 	@Autowired
-	DetailService detS;
+	DetailService detaS;
 	
-	@RequestMapping(value="/api/detail" , method = {RequestMethod.GET, RequestMethod.POST})
-	public Map<String, Object> detailProductsList(
-								@RequestParam(name="displayInfoId", required=false, defaultValue="0") int displayInfoId) {
+	@RequestMapping(value="/img/et" , method = {RequestMethod.GET, RequestMethod.POST})
+	public Map<String, Object> etImgList(
+								@RequestParam(name="displayInfoId", required=false, defaultValue="1") int id) {
 		
-		List<ProductImage> etImages=detS.getEtImage(displayInfoId);
+		List<ProductImage> etImages=detaS.getEtImage(id);
+		List<ProductImage> productImage=detaS.getProductImage(id);
+		List<ProductDetail> product=detaS.getDetailProduct(id);
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("etImages", etImages);
+		map.put("productImage", productImage);
+		map.put("product", product); 
+		return map;
+	}
+	
+	@RequestMapping(value="/api/dproducts/{displayInfoId}" , method = {RequestMethod.GET})
+	public Map<String, Object> detailProductsList(@PathVariable(name="displayInfoId") int displayInfoId) {
+		
+		List<ProductDetail> product=detaS.getDetailProduct(displayInfoId);
+		List<ProductImage> productImages=detaS.getProductImage(displayInfoId);
+		List<DisplayImage> displayImages=detaS.getDisplayImage(displayInfoId);
+		List<Comment> comment=detaS.getComments(displayInfoId);
+		List<CommentImage> reservationUserCommentImages=detaS.getCommentImages(displayInfoId);
+		List<ProductPrice> productPrices=detaS.getPrices(displayInfoId);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("product", product);
+		map.put("productImages", productImages);
+		map.put("displayImages", displayImages);
+		map.put("comment", comment);
+		map.put("reservationUserCommentImages", reservationUserCommentImages);
+		map.put("avgScore", 3.0);
+		map.put("productPrices", productPrices);
 		return map;
 	}
 }

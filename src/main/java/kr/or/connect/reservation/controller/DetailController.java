@@ -25,10 +25,7 @@ import kr.or.connect.reservation.dto.ProductDetail;
 import kr.or.connect.reservation.dto.ProductImage;
 import kr.or.connect.reservation.dto.Promotion;
 import kr.or.connect.reservation.dto.PromotionImg;
-import kr.or.connect.reservation.service.CategoryService;
 import kr.or.connect.reservation.service.DetailService;
-import kr.or.connect.reservation.service.PromotionService;
-import kr.or.connect.reservation.service.ProductService;
 
 
 @Controller
@@ -44,11 +41,11 @@ public class DetailController {
 		List<ProductImage> productImage=detaS.getProductImage(id);
 		int etCount=detaS.getEtCount(id);
 
+		mm.addAttribute("detailId", id);
 		mm.addAttribute("product", product); 
 		mm.addAttribute("productImage", productImage);
-//		if(etCount>0) {
-			mm.addAttribute("etCount", etCount);
-//		}
+		mm.addAttribute("etCount", etCount);
+		
 		return "detail";
 	}
 }

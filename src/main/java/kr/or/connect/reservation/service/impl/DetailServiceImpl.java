@@ -22,7 +22,6 @@ import kr.or.connect.reservation.dto.ProductDetail;
 import kr.or.connect.reservation.dto.ProductImage;
 import kr.or.connect.reservation.dto.ProductPrice;
 import kr.or.connect.reservation.service.DetailService;
-import kr.or.connect.reservation.service.ProductService;
 
 @Service
 public class DetailServiceImpl implements DetailService {
@@ -38,7 +37,7 @@ public class DetailServiceImpl implements DetailService {
 	CommentImageDao comidao;
 	@Autowired
 	ProductPriceDao prodpdao;
-	
+
 	@Override
 	@Transactional
 	public List<ProductDetail> getDetailProduct(Integer displayInfoId) {
@@ -93,5 +92,7 @@ public class DetailServiceImpl implements DetailService {
 	public int getEtCount(Integer displayInfoId) {
 		return prodidao.etImageCount(displayInfoId);
 	}
+
+
 	
 }

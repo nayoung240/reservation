@@ -36,6 +36,8 @@
                         </h1>
                         <a href="./myreservation.html" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
                     </header>
+                    <p id="detailId" style="display:none">${detailId}</p>
+                    <p id="etCount" style="display:none">${etCount}</p>
                     <div class="pagination">
                         <div class="bg_pagination"></div>
                         <div class="figure_pagination">
@@ -59,33 +61,9 @@
                                     </li>
                                     </c:forEach>
                                     </c:forEach>
-                                    <li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src=""> <span class="img_bg"></span>
-                                        <div class="visual_txt">
-                                            <div class="visual_txt_inn">
-                                                <h2 class="visual_txt_tit"> <span></span> </h2>
-                                                <p class="visual_txt_dsc"></p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src=""> <span class="img_bg"></span>
-                                        <div class="visual_txt">
-                                            <div class="visual_txt_inn">
-                                                <h2 class="visual_txt_tit"> <span></span> </h2>
-                                                <p class="visual_txt_dsc"></p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src=""> <span class="img_bg"></span>
-                                        <div class="visual_txt">
-                                            <div class="visual_txt_inn">
-                                                <h2 class="visual_txt_tit"> <span></span> </h2>
-                                                <p class="visual_txt_dsc"></p>
-                                            </div>
-                                        </div>
-                                    </li>
                                 </ul>
                             </div>
-                            <c:if test="${etCount==1}">
+                            <c:if test="${etCount>1}">
                             <div class="prev">
                                 <div class="prev_inn">
                                     <a href="#" class="btn_prev" title="이전">
@@ -96,7 +74,7 @@
                             </div>
                             <div class="nxt">
                                 <div class="nxt_inn">
-                                    <a href="#" class="btn_nxt" title="다음">
+                                    <a class="btn_nxt" title="다음">
                                         <i class="spr_book2 ico_arr6_rt"></i>
                                     </a>
                                 </div>
@@ -118,11 +96,12 @@
                         <p class="dsc">
 	                        <c:forEach var="prod" items="${product}">
 								${prod.content}		
+							</c:forEach>
                         </p>
                     </div>
                     <!-- [D] 토글 상황에 따라 bk_more에 display:none 추가 -->
-                    <a href="#" class="bk_more _open"> <span class="bk_more_txt">펼쳐보기</span> <i class="fn fn-down2"></i> </a>
-                    <a href="#" class="bk_more _close" style="display: none;"> <span class="bk_more_txt">접기</span> <i class="fn fn-up2"></i> </a>
+                    <a class="bk_more _open"> <span class="bk_more_txt">펼쳐보기</span> <i class="fn fn-down2"></i> </a>
+                    <a class="bk_more _close" style="display: none;"> <span class="bk_more_txt">접기</span> <i class="fn fn-up2"></i> </a>
                 </div>
                 <div class="section_event">
                     <div class="event_info_box">
@@ -130,7 +109,8 @@
                             <h4 class="in_tit"> <i class="spr_book ico_evt"></i> <span>이벤트 정보</span> </h4>
                         </div>
                         <div class="event_info">
-                            <div class="in_dsc">${prod.event}</div>
+                      		<c:forEach var="prod" items="${product}">
+                            	<div class="in_dsc">${prod.event}</div>
                             </c:forEach>
                         </div>
                     </div>
@@ -192,10 +172,10 @@
                     <!-- [D] tab 선택 시 anchor에 active 추가 -->
                     <ul class="info_tab_lst">
                         <li class="item active _detail">
-                            <a href="#" class="anchor active"> <span>상세정보</span> </a>
+                            <a class="anchor active">상세정보</a>
                         </li>
                         <li class="item _path">
-                            <a href="#" class="anchor"> <span>오시는길</span> </a>
+                            <a class="anchor">오시는길</a>
                         </li>
                     </ul>
                     <!-- [D] 상세정보 외 다른 탭 선택 시 detail_area_wrap에 hide 추가 -->
@@ -275,6 +255,7 @@
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
+    //접기 펼치기
     $(document).ready(function(){
         $(".bk_more").click(function(){
             $(".store_details").toggleClass("close3");
@@ -293,25 +274,87 @@
         });
     });
     </script>
+    <script type="rv-template" id="etImageList">
+    <li class="item" style="width: 414px; height: -webkit-fill-available;"> <img alt="" style="height: -webkit-fill-available;" class="img_thumb" src="{{saveFileName}}"> <span class="img_bg"></span>
+    <div class="visual_txt">
+	</script>
+	<script type="rv-template" id="etImageList2">
+        <div class="visual_txt_inn">
+            <h2 class="visual_txt_tit"> <span>{{description}}</span> </h2>
+            <p class="visual_txt_dsc"></p>
+        </div>
+    </div>
+	</li>
+	</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
     <script>
-/* 	var type="all";
- 	function moreProductAjax(url, startNum){
-		var oReq=new XMLHttpRequest();
+    function addEtTemplate(json, etcnt){		
+		var num=document.querySelector(".num");
+    	var detailUl=document.querySelector(".visual_img");
+    	
+    	var template=document.querySelector("#etImageList").innerText;
+    	var template2=document.querySelector("#etImageList2").innerText;
+    	var bindTemplate=Handlebars.compile(template);
+    	var bindTemplate2=Handlebars.compile(template2);
+    	
+    	
+		
+
+		
+			var resultHTML=bindTemplate(json.etImages[etcnt]);
+	   		resultHTML+=bindTemplate2(json.product[0]);
+	    	//console.log(resultHTML);
+			
+			num.innerText=etcnt+2;  
+
+ 			if(etcnt==-1){
+				var resultHTML=bindTemplate(json.productImage[0]);
+		   		resultHTML+=bindTemplate2(json.product[0]);
+				
+		   		num.innerText=1; 
+		   	}
+			
+		detailUl.innerHTML=resultHTML; 		
+    }
+ 	function moreEtAjax(url, etcnt){
+ 		var detailId=document.querySelector("#detailId").innerText;
+ 		
+ 		var oReq=new XMLHttpRequest();
 		oReq.addEventListener("load",function(){
 			var json=JSON.parse(this.responseText);
-			moreProduct(json, type);
-			console.log("sn: "+startNum);
+			addEtTemplate(json, etcnt);
 		});
 		oReq.open("POST", url, true);
 		oReq.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		oReq.send(sendContent+"&start="+startNum);
+		oReq.send("displayInfoId="+detailId);
  	}
- 	var startNum=0;
- 	var btn=document.querySelector(".btn");
+ 	var etcntAll=document.querySelector("#etCount").innerText;
+ 	var etcnt=0;
+ 	var btn=document.querySelector(".btn_nxt");
    	btn.addEventListener("click", function(){
-		startNum+=4;
-   	   	moreProductAjax("/reservation/products", startNum);
-   	});  */
+   	   	moreEtAjax("/reservation/img/et",etcnt);
+   	 	console.log("현재"+(etcnt+2));
+   	 	etcnt++;
+   	 	if(etcnt==etcntAll){
+   	 		etcnt=-1;
+   	 	}
+   	 	console.log("증가후"+(etcnt+2));
+   	});  
+   	</script> 
+    <script>
+	var infoTab=document.querySelector(".info_tab_lst");
+	infoTab.addEventListener("click", function(e){
+         if (e.target.tagName === "A") {
+        	console.log(e.target.innerText);
+    		
+         	//카테고리 active
+    		var anchor=document.querySelectorAll(".anchor");
+    		for(var i=0, len=anchor.length; i<len; i++ ){
+    			anchor[i].classList.remove("active");
+    		}
+        	e.target.classList.add("active"); 
+        } 
+	});
     </script>
 </body>
 </html>

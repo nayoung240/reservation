@@ -15,6 +15,7 @@ import kr.or.connect.reservation.dto.ProductPrice;
 
 @Service
 public interface DetailService {
+	public static final Integer LIMIT=4;
 	public List<ProductDetail> getDetailProduct(Integer displayInfoId);
 	public List<ProductImage> getProductImage(Integer displayInfoId);
 	public List<ProductImage> getEtImage(Integer displayInfoId);

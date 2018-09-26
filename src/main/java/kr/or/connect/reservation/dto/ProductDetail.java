@@ -3,21 +3,21 @@ package kr.or.connect.reservation.dto;
 public class ProductDetail {
 	private int id;
 	private int categoryId;
-	private int displayInfoId; //추가
-	private String name; //추가
+	private int displayInfoId; 
+	private String name; 
 	private String description;
 	private String content;
-	private String event; //추가
-	private String openingHours; //추가
+	private String event;
+	private String openingHours;
 	private String placeName;
-	private String placeLot; //추가
-	private String placeStreet; //추가
-	private String tel; //추가
-	private String homepage; //추가
-	private String email; //추가
-	private String createDate; //추가
-	private String modifyDate; //추가
-
+	private String placeLot; 
+	private String placeStreet; 
+	private String tel; 
+	private String homepage; 
+	private String email; 
+	private String createDate;
+	private String modifyDate;
+	
 	public int getId() {
 		return id;
 	}

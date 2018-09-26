@@ -34,9 +34,6 @@ public class ProductDetailDao {
 						.usingGeneratedKeyColumns("id");*/
 	}
 	
-	//p.id, p.category_id, d.id, c.name, p.description, p.content
-	//, p.event, d.opening_hours, d.place_name, d.place_lot, d.place_street 
-	//, d.tel, d.homepage, d.email, d.create_date, d.modify_date
 	public List<ProductDetail> detailProdList(Integer displayInfoId){
 		Map<String, Integer> params=new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
