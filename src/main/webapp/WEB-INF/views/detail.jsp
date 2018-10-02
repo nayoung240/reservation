@@ -48,19 +48,7 @@
                     <div class="group_visual">
                         <div>
                             <div class="container_visual" style="width: 414px;">
-                                <ul class="visual_img detail_swipe">
-                                <c:forEach var="prodimg" items="${productImage}">
-                                 <c:forEach var="prod" items="${product}">
-                                    <li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src="${prodimg.saveFileName }"> <span class="img_bg"></span>
-                                        <div class="visual_txt">
-                                            <div class="visual_txt_inn">
-                                                <h2 class="visual_txt_tit"> <span>${prod.description}</span> </h2>
-                                                <p class="visual_txt_dsc"></p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    </c:forEach>
-                                    </c:forEach>
+                                <ul class="visual_img detail_swipe" style="transition-duration: 1s;">
                                 </ul>
                             </div>
                             <c:if test="${etCount>1}">
@@ -288,60 +276,73 @@
 	</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
     <script>
-    function addEtTemplate(json, etcnt){		
-		var num=document.querySelector(".num");
-    	var detailUl=document.querySelector(".visual_img");
-    	
-    	var template=document.querySelector("#etImageList").innerText;
-    	var template2=document.querySelector("#etImageList2").innerText;
-    	var bindTemplate=Handlebars.compile(template);
-    	var bindTemplate2=Handlebars.compile(template2);
-    	
-    	
+   var detailUl=document.querySelector(".visual_img");	
+   function addEtTemplate(json){		
+   		var etTempl=document.querySelector("#etImageList").innerText;
+   		var etTempl2=document.querySelector("#etImageList2").innerText;
+   		var etBindTempl=Handlebars.compile(etTempl);
+   		var etBindTempl2=Handlebars.compile(etTempl2);
+   		
+		var prodHTML=etBindTempl(json.productImage[0]);
+		prodHTML+=etBindTempl2(json.product[0]);
 		
-
-		
-			var resultHTML=bindTemplate(json.etImages[etcnt]);
-	   		resultHTML+=bindTemplate2(json.product[0]);
-	    	//console.log(resultHTML);
-			
-			num.innerText=etcnt+2;  
-
- 			if(etcnt==-1){
-				var resultHTML=bindTemplate(json.productImage[0]);
-		   		resultHTML+=bindTemplate2(json.product[0]);
-				
-		   		num.innerText=1; 
-		   	}
-			
-		detailUl.innerHTML=resultHTML; 		
-    }
- 	function moreEtAjax(url, etcnt){
+        var etHTML=json.etImages.reduce(function(prev,next){ 
+           return prev+etBindTempl(next)+etBindTempl2(json.product[0]);
+       },"");
+       
+		detailUl.insertAdjacentHTML('beforeend',prodHTML);
+		detailUl.insertAdjacentHTML('beforeend',etHTML);
+   }
+   
+   window.onload=function(){
  		var detailId=document.querySelector("#detailId").innerText;
  		
  		var oReq=new XMLHttpRequest();
 		oReq.addEventListener("load",function(){
 			var json=JSON.parse(this.responseText);
-			addEtTemplate(json, etcnt);
+			addEtTemplate(json);
 		});
-		oReq.open("POST", url, true);
+		oReq.open("POST", "/reservation/img/et", true);
 		oReq.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		oReq.send("displayInfoId="+detailId);
- 	}
- 	var etcntAll=document.querySelector("#etCount").innerText;
- 	var etcnt=0;
- 	var btn=document.querySelector(".btn_nxt");
-   	btn.addEventListener("click", function(){
-   	   	moreEtAjax("/reservation/img/et",etcnt);
-   	 	console.log("현재"+(etcnt+2));
-   	 	etcnt++;
-   	 	if(etcnt==etcntAll){
-   	 		etcnt=-1;
-   	 	}
-   	 	console.log("증가후"+(etcnt+2));
+	}
+   </script>
+   <script>
+ 	var etcntAll=parseInt(document.querySelector("#etCount").innerText);
+ 	var etcnt=1;
+ 	var etMargin=0;
+ 	var promNum=document.querySelector(".num");
+ 	var leftBtn=document.querySelector(".btn_prev");
+ 	var rightBtn=document.querySelector(".btn_nxt");
+ 	
+	leftBtn.addEventListener("click",function(){
+		if(etcnt==1){
+			etcnt=etcntAll+1;
+			etMargin=(etcnt*100)-100;
+		}
+		else{
+			etcnt--;
+			etMargin-=100;
+		}
+		promNum.innerText=etcnt;
+		detailUl.style.marginLeft ="-"+etMargin+"%";
+	});
+ 		
+ 	rightBtn.addEventListener("click", function(){
+ 		if(etcnt==etcntAll+1){
+ 			etcnt=1;
+ 			etMargin=0;
+ 		}
+ 		else{
+ 	 		etcnt++;
+ 	 		etMargin+=100;  
+ 		}
+ 		promNum.innerText=etcnt;
+		detailUl.style.marginLeft ="-"+etMargin+"%";
    	});  
-   	</script> 
+    </script>
     <script>
+    //탭전환
 	var infoTab=document.querySelector(".info_tab_lst");
 	infoTab.addEventListener("click", function(e){
          if (e.target.tagName === "A") {
