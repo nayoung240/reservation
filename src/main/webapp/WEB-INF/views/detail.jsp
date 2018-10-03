@@ -110,46 +110,31 @@
                         <div class="short_review_area">
                             <div class="grade_area">
                                 <!-- [D] 별점 graph_value는 퍼센트 환산하여 width 값을 넣어줌 -->
-                                <span class="graph_mask"> <em class="graph_value" style="width: 84%;"></em> </span>
+                                <span class="graph_mask"> <em class="graph_value" style="width: 84%; vertical-align: text-top;"></em> </span>
                                 <strong class="text_value"> <span>4.2</span> <em class="total">5.0</em> </strong>
                                 <span class="join_count"><em class="green">52건</em> 등록</span>
                             </div>
                             <ul class="list_short_review">
+	                            <c:forEach var="comm" items="${comment}" begin="0" end="2" step="1">
                                 <li class="list_item">
                                     <div>
                                         <div class="review_area">
+                                        	<c:forEach var="commImg" items="${commentImages}">
+                                        	<c:if test="${commImg.reservationUserCommentId==comm.id}">
                                             <div class="thumb_area">
-                                                <a href="#" class="thumb" title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src="http://naverbooking.phinf.naver.net/20170306_3/1488772023601A4195_JPEG/image.jpg?type=f300_300" alt="리뷰이미지"> </a> <span class="img_count" style="display:none;">1</span>                                                </div>
+                                                <a href="" class="thumb" title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src="${commImg.saveFileName}" alt="리뷰이미지"> </a> <span class="img_count">1</span>
+                                             </div>
+                                              </c:if>
+                                             </c:forEach>
                                             <h4 class="resoc_name"></h4>
-                                            <p class="review">2층이어서 걱정했는데 꽤잘보여서 좋았습니다 고미오 너무 멋있었습니다 사진은 커튼콜때 찍었습니다 끝나고 퇴근길도 봐서 너무 좋았어요</p>
+                                            <p class="review">${comm.comment}</p>
                                         </div>
                                         <div class="info_area">
-                                            <div class="review_info"> <span class="grade">4.0</span> <span class="name">dbfl****</span> <span class="date">2017.3.5. 방문</span> </div>
+                                            <div class="review_info"> <span class="grade">${comm.score}</span> <span class="name">dbfl****</span> <span class="date">${comm.createDate} 방문</span> </div>
                                         </div>
                                     </div>
                                 </li>
-                                <li class="list_item">
-                                    <div>
-                                        <div class="review_area no_img">
-                                            <h4 class="resoc_name"></h4>
-                                            <p class="review">너무 재밌게봤구요~<br>마지막공연 후 뒷풀이도 잘봤습니다</p>
-                                        </div>
-                                        <div class="info_area">
-                                            <div class="review_info"> <span class="grade">5.0</span> <span class="name">yyck****</span> <span class="date">2017.3.5. 방문</span> </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list_item">
-                                    <div>
-                                        <div class="review_area no_img">
-                                            <h4 class="resoc_name"></h4>
-                                            <p class="review">좋은 공연이었습니다. <br>머큐쇼역활 하신분의 열창이 기억에 남는 반면에,,, 로미오는 별로 기억에 남지 않네요..</p>
-                                        </div>
-                                        <div class="info_area">
-                                            <div class="review_info"> <span class="grade">4.0</span> <span class="name">xero****</span> <span class="date">2017.3.4. 방문</span> </div>
-                                        </div>
-                                    </div>
-                                </li>
+                               </c:forEach>
                             </ul>
                         </div>
                         <p class="guide"> <i class="spr_book2 ico_bell"></i> <span>네이버 예약을 통해 실제 방문한 이용자가 남긴 평가입니다.</span> </p>
@@ -197,32 +182,36 @@
                     <!-- [D] 오시는길 외 다른 탭 선택 시 detail_location에 hide 추가 -->
                     <div class="detail_location hide">
                         <div class="box_store_info no_topline">
-                            <a href="#" class="store_location" title="지도웹으로 연결">
-                                <img class="store_map img_thumb" alt="map" src="https://simg.pstatic.net/static.map/image?version=1.1&amp;crs=EPSG:4326&amp;baselayer=bl_vc_bg&amp;exception=xml&amp;scale=2&amp;caller=mw_smart_booking&amp;overlayers=ol_vc_an&amp;center=127.0011948,37.5717079&amp;markers=type,default2,127.0011948,37.5717079&amp;level=11&amp;w=340&amp;h=150">
+                        	<c:forEach var="dispImg" items="${displayImages}">
+                            <a href="" class="store_location" title="지도웹으로 연결">
+                                <img class="store_map img_thumb" alt="map" src="${dispImg.saveFileName}">
                                 <span class="img_border"></span>
                                 <span class="btn_map"><i class="spr_book2 ico_mapview"></i></span>
                             </a>
-                            <h3 class="store_name">엔에이치엔티켓링크(주)</h3>
+                            </c:forEach>
+                            <c:forEach var="prod" items="${product}">
+                            <h3 class="store_name">${prod.description}</h3>
                             <div class="store_info">
                                 <div class="store_addr_wrap">
                                     <span class="fn fn-pin2"></span>
-                                    <p class="store_addr store_addr_bold">서울특별시 종로구 종로33길 15 </p>
+                                    <p class="store_addr store_addr_bold">${prod.placeLot}</p>
                                     <p class="store_addr">
                                         <span class="addr_old">지번</span>
-                                        <span class="addr_old_detail">서울특별시 종로구 연지동 270 </span>
+                                        <span class="addr_old_detail">${prod.placeStreet}</span>
                                     </p>
-                                    <p class="store_addr addr_detail">두산아트센터 연강홀</p>
+                                    <p class="store_addr addr_detail">${prod.placeName}</p>
                                 </div>
                                 <div class="lst_store_info_wrap">
                                     <ul class="lst_store_info">
-                                        <li class="item"> <span class="item_lt"> <i class="fn fn-call2"></i> <span class="sr_only">전화번호</span> </span> <span class="item_rt"> <a href="tel:02-548-0597" class="store_tel">02-548-0597</a></span> </li>
+                                        <li class="item"> <span class="item_lt"> <i class="fn fn-call2"></i> <span class="sr_only">전화번호</span> </span> <span class="item_rt"> <a href="tel:02-548-0597" class="store_tel">${prod.tel}</a></span> </li>
                                     </ul>
                                 </div>
                             </div>
+                            </c:forEach>
 							<!-- [D] 모바일 브라우저에서 접근 시 column2 추가와 btn_navigation 요소 추가 -->
                             <div class="bottom_common_path column2">
-                                <a href="#" class="btn_path"> <i class="fn fn-path-find2"></i> <span>길찾기</span> </a>
-								<a hewf="#" class="btn_navigation before"> <i class="fn fn-navigation2"></i> <span>내비게이션</span> </a>
+                                <a href="" class="btn_path"> <i class="fn fn-path-find2"></i> <span>길찾기</span> </a>
+								<a href="" class="btn_navigation before"> <i class="fn fn-navigation2"></i> <span>내비게이션</span> </a>
                             </div>
                         </div>
                     </div>
@@ -241,27 +230,6 @@
     </footer>
     <div id="photoviwer"></div>
     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script>
-    //접기 펼치기
-    $(document).ready(function(){
-        $(".bk_more").click(function(){
-            $(".store_details").toggleClass("close3");
-             if($("._close").css("display") == "none"){   
-    		    $('._close').css("display", "block");   
-		    } 
-            else{
-            $('._close').css("display", "none");
-            }
-            if($("._open").css("display") == "block"){   
-    		    $('._open').css("display", "none");   
-		    } 
-            else{
-            $('._open').css("display", "block");
-            } 
-        });
-    });
-    </script>
     <script type="rv-template" id="etImageList">
     <li class="item" style="width: 414px; height: -webkit-fill-available;"> <img alt="" style="height: -webkit-fill-available;" class="img_thumb" src="{{saveFileName}}"> <span class="img_bg"></span>
     <div class="visual_txt">
@@ -294,9 +262,8 @@
 		detailUl.insertAdjacentHTML('beforeend',etHTML);
    }
    
+   var detailId=parseInt(document.querySelector("#detailId").innerText);
    window.onload=function(){
- 		var detailId=document.querySelector("#detailId").innerText;
- 		
  		var oReq=new XMLHttpRequest();
 		oReq.addEventListener("load",function(){
 			var json=JSON.parse(this.responseText);
@@ -341,6 +308,27 @@
 		detailUl.style.marginLeft ="-"+etMargin+"%";
    	});  
     </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+    //접기 펼치기
+    $(document).ready(function(){
+        $(".bk_more").click(function(){
+            $(".store_details").toggleClass("close3");
+             if($("._close").css("display") == "none"){   
+    		    $('._close').css("display", "block");   
+		    } 
+            else{
+            $('._close').css("display", "none");
+            }
+            if($("._open").css("display") == "block"){   
+    		    $('._open').css("display", "none");   
+		    } 
+            else{
+            $('._open').css("display", "block");
+            } 
+        });
+    });
+    </script>
     <script>
     //탭전환
 	var infoTab=document.querySelector(".info_tab_lst");
@@ -354,6 +342,20 @@
     			anchor[i].classList.remove("active");
     		}
         	e.target.classList.add("active"); 
+        	
+        	//상세정보, 오시는길 내용
+        	var detArea=document.querySelector(".detail_area_wrap");
+        	var detLoca=document.querySelector(".detail_location");
+            if(e.target.innerText=="오시는길"){
+            	//상세정보 외 다른 탭 선택 시 detail_area_wrap에 hide 추가
+            	detLoca.classList.remove("hide");
+            	detArea.classList.add("hide");
+        	}
+            else{
+            	//오시는길 외 다른 탭 선택 시 detail_location에 hide 추가
+            	detArea.classList.remove("hide");
+            	detLoca.classList.add("hide");
+            }
         } 
 	});
     </script>

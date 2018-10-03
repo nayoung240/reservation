@@ -29,11 +29,11 @@ public class DetailApiController {
 	
 	@RequestMapping(value="/img/et" , method = {RequestMethod.GET, RequestMethod.POST})
 	public Map<String, Object> etImgList(
-								@RequestParam(name="displayInfoId", required=false, defaultValue="1") int id) {
+								@RequestParam(name="displayInfoId", required=false, defaultValue="1") int dispId) {
 		
-		List<ProductImage> etImages=detaS.getEtImage(id);
-		List<ProductImage> productImage=detaS.getProductImage(id);
-		List<ProductDetail> product=detaS.getDetailProduct(id);
+		List<ProductImage> etImages=detaS.getEtImage(dispId);
+		List<ProductImage> productImage=detaS.getProductImage(dispId);
+		List<ProductDetail> product=detaS.getDetailProduct(dispId);
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("etImages", etImages);
@@ -42,15 +42,15 @@ public class DetailApiController {
 		return map;
 	}
 	
-	@RequestMapping(value="/api/dproducts/{displayInfoId}" , method = {RequestMethod.GET})
-	public Map<String, Object> detailProductsList(@PathVariable(name="displayInfoId") int displayInfoId) {
+	@RequestMapping(value="/api/detail-products/{displayInfoId}" , method = {RequestMethod.GET})
+	public Map<String, Object> detailProductsList(@PathVariable(name="displayInfoId") int dispId) {
 		
-		List<ProductDetail> product=detaS.getDetailProduct(displayInfoId);
-		List<ProductImage> productImages=detaS.getProductImage(displayInfoId);
-		List<DisplayImage> displayImages=detaS.getDisplayImage(displayInfoId);
-		List<Comment> comment=detaS.getComments(displayInfoId);
-		List<CommentImage> reservationUserCommentImages=detaS.getCommentImages(displayInfoId);
-		List<ProductPrice> productPrices=detaS.getPrices(displayInfoId);
+		List<ProductDetail> product=detaS.getDetailProduct(dispId);
+		List<ProductImage> productImages=detaS.getProductImage(dispId);
+		List<DisplayImage> displayImages=detaS.getDisplayImage(dispId);
+		List<Comment> comment=detaS.getComments(dispId);
+		List<CommentImage> reservationUserCommentImages=detaS.getCommentImages(dispId);
+		List<ProductPrice> productPrices=detaS.getPrices(dispId);
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("product", product);
