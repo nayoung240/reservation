@@ -237,8 +237,10 @@
 		var right=""; 
 		var length=0;
 		
+		var more=document.querySelector(".btn");
+		
 		if(type=="all"){
-			length=json.allProdList.length
+			length=json.allProdList.length;
 			console.log("길이: "+length);
 			if(length!=0){ //2 1 1 / 3 2 1 / 4 2 2
 				if(length<=2){
@@ -275,10 +277,12 @@
 				leftUl.insertAdjacentHTML('beforeend',left);
 				rightUl.insertAdjacentHTML('beforeend',right); 
 			}
+
 		}
 		else if(type=="category"){
 			length=json.cateProdList.length
 			console.log("길이: "+length);
+			
 			if(length!=0){ 
 				if(length<=2){
 					left+=template.replace("{description}",json.cateProdList[0].description)
@@ -312,7 +316,7 @@
 					}
 				}
 				leftUl.insertAdjacentHTML('beforeend',left);
-				rightUl.insertAdjacentHTML('beforeend',right); 
+				rightUl.insertAdjacentHTML('beforeend',right);
 			}
 		}
 	}
@@ -339,7 +343,7 @@
    	function countProduct(json, cateName){
    		var pink=document.querySelector(".pink");
 
-    		if(cateName=="전체리스트"){
+    	if(cateName=="전체리스트"){
    			pink.innerText=${allCnt};
    		}
    		else if(cateName=="전시"){
@@ -387,8 +391,6 @@
         	e.target.classList.add("active");
         	
         	//카테고리 ajax
-        	var btn=document.querySelector(".btn");
-            
             if(e.target.innerText=="전체리스트"){
             	type="all";
  				sendContent="";
