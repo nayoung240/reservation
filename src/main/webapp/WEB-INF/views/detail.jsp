@@ -122,7 +122,7 @@
                                         	<c:forEach var="commImg" items="${commentImages}">
                                         	<c:if test="${commImg.reservationUserCommentId==comm.id}">
                                             <div class="thumb_area">
-                                                <a href="" class="thumb" title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src="${commImg.saveFileName}" alt="리뷰이미지"> </a> <span class="img_count">1</span>
+                                                <a href="javascript:void(0)" class="thumb" title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src="${commImg.saveFileName}" alt="리뷰이미지"> </a> <span class="img_count">1</span>
                                              </div>
                                               </c:if>
                                              </c:forEach>
@@ -167,7 +167,7 @@
                                     </li>
                                     <li class="detail_info_lst"> <strong class="in_tit">[공지사항]</strong>
                                         <ul class="in_img_group">
-                                            <li class="in_img_lst"> <img alt="" class="img_thumb" src="https://ssl.phinf.net/naverbooking/20170131_238/14858250829398Pnx6_JPEG/%B0%F8%C1%F6%BB%E7%C7%D7.jpg?type=a1000"> </li>
+                                            <li class="in_img_lst"> <img class="img_thumb" src="https://ssl.phinf.net/naverbooking/20170131_238/14858250829398Pnx6_JPEG/%B0%F8%C1%F6%BB%E7%C7%D7.jpg?type=a1000"> </li>
                                         </ul>
                                     </li>
                                     <!-- <li class="detail_info_lst"> <strong class="in_tit">[공연정보]</strong>
@@ -183,7 +183,7 @@
                     <div class="detail_location hide">
                         <div class="box_store_info no_topline">
                         	<c:forEach var="dispImg" items="${displayImages}">
-                            <a href="" class="store_location" title="지도웹으로 연결">
+                            <a href="javascript:void(0)" class="store_location" title="지도웹으로 연결">
                                 <img class="store_map img_thumb" alt="map" src="${dispImg.saveFileName}">
                                 <span class="img_border"></span>
                                 <span class="btn_map"><i class="spr_book2 ico_mapview"></i></span>
@@ -210,8 +210,8 @@
                             </c:forEach>
 							<!-- [D] 모바일 브라우저에서 접근 시 column2 추가와 btn_navigation 요소 추가 -->
                             <div class="bottom_common_path column2">
-                                <a href="" class="btn_path"> <i class="fn fn-path-find2"></i> <span>길찾기</span> </a>
-								<a href="" class="btn_navigation before"> <i class="fn fn-navigation2"></i> <span>내비게이션</span> </a>
+                                <a href="javascript:void(0)" class="btn_path"> <i class="fn fn-path-find2"></i> <span>길찾기</span> </a>
+								<a href="javascript:void(0)" class="btn_navigation before"> <i class="fn fn-navigation2"></i> <span>내비게이션</span> </a>
                             </div>
                         </div>
                     </div>
@@ -231,7 +231,7 @@
     <div id="photoviwer"></div>
     
     <script type="rv-template" id="etImageList">
-    <li class="item" style="width: 414px; height: -webkit-fill-available;"> <img alt="" style="height: -webkit-fill-available;" class="img_thumb" src="{{saveFileName}}"> <span class="img_bg"></span>
+    <li class="item" style="width: 414px; height: -webkit-fill-available;"> <img style="height: -webkit-fill-available;" class="img_thumb" src="{{saveFileName}}"> <span class="img_bg"></span>
     <div class="visual_txt">
 	</script>
 	<script type="rv-template" id="etImageList2">
