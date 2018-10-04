@@ -24,9 +24,9 @@ public interface DetailService {
 	public List<DisplayImage> getDisplayImage(int displayInfoId);
 	
 	public List<Comment> getComments(int displayInfoId);
+	public String getAvgScore(int displayInfoId);
+	public int getCommentCnt(int displayInfoId);
 	public List<CommentImage> getCommentImages(int displayInfoId);
 	
 	public List<ProductPrice> getPrices(int displayInfoId);
-	
-	
 }

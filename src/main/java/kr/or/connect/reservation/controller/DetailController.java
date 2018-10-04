@@ -43,6 +43,10 @@ public class DetailController {
 		List<ProductImage> productImage=detaS.getProductImage(id);
 		int etCount=detaS.getEtCount(id);
 		List<DisplayImage> displayImages=detaS.getDisplayImage(id);
+		
+		String avgScore=detaS.getAvgScore(id);
+		int scoreWidth=(int)((100/5)*Float.parseFloat(avgScore));
+		int commentCnt=detaS.getCommentCnt(id);
 		List<Comment> comment=detaS.getComments(id);
 		List<CommentImage> reservationUserCommentImages=detaS.getCommentImages(id);
 		
@@ -51,6 +55,10 @@ public class DetailController {
 		mm.addAttribute("productImage", productImage);
 		mm.addAttribute("etCount", etCount);
 		mm.addAttribute("displayImages", displayImages);
+
+		mm.addAttribute("avgScore", avgScore);
+		mm.addAttribute("scoreWidth", scoreWidth);
+		mm.addAttribute("commentCnt", commentCnt);
 		mm.addAttribute("comment", comment);
 		mm.addAttribute("commentImages", reservationUserCommentImages);
 		

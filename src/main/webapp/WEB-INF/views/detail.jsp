@@ -110,13 +110,13 @@
                         <div class="short_review_area">
                             <div class="grade_area">
                                 <!-- [D] 별점 graph_value는 퍼센트 환산하여 width 값을 넣어줌 -->
-                                <span class="graph_mask"> <em class="graph_value" style="width: 84%; vertical-align: text-top;"></em> </span>
-                                <strong class="text_value"> <span>4.2</span> <em class="total">5.0</em> </strong>
-                                <span class="join_count"><em class="green">52건</em> 등록</span>
+                                <span class="graph_mask"> <em class="graph_value" style="width: ${scoreWidth}%; vertical-align: text-top;"></em> </span>
+                                <strong class="text_value"> <span>${avgScore}</span> <em class="total">5.0</em> </strong>
+                                <span class="join_count"><em class="green">${commentCnt}건</em> 등록</span>
                             </div>
                             <ul class="list_short_review">
-	                            <c:forEach var="comm" items="${comment}" begin="0" end="2" step="1">
-                                <li class="list_item">
+                 	            <c:forEach var="comm" items="${comment}" begin="0" end="2" step="1">
+                            	<li class="list_item">
                                     <div>
                                         <div class="review_area">
                                         	<c:forEach var="commImg" items="${commentImages}">
@@ -134,7 +134,7 @@
                                         </div>
                                     </div>
                                 </li>
-                               </c:forEach>
+                                </c:forEach>
                             </ul>
                         </div>
                         <p class="guide"> <i class="spr_book2 ico_bell"></i> <span>네이버 예약을 통해 실제 방문한 이용자가 남긴 평가입니다.</span> </p>

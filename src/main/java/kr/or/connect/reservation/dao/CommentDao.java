@@ -4,6 +4,7 @@ import static kr.or.connect.reservation.dao.ReservationDaoSqls.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,5 +54,11 @@ public class CommentDao {
 				return p;
 			}
 		});
+	}
+
+	public int commentCnt(int displayInfoId) {
+		Map<String, Integer> params=new HashMap<>();
+		params.put("displayInfoId", displayInfoId);
+		return jdbc.queryForObject(DETAIL_COMMENT_COUNT, params, Integer.class);
 	}
 }

@@ -67,12 +67,39 @@ public class DetailServiceImpl implements DetailService {
 	}
 	
 	@Override
+	public String getAvgScore(int displayInfoId) {
+		List<Comment> list=comdao.commentList(displayInfoId);
+		int sum=0;
+		float size=list.size();
+		
+		for (Comment c : list) {
+			sum+=c.getScore();
+        }
+		
+		if(sum==0) {
+			return "0.0";
+		}
+		else {
+			return String.format("%.1f", sum/size);
+		}
+	}
+	
+	@Override
+	public int getCommentCnt(int displayInfoId){
+		try {
+			return comdao.commentCnt(displayInfoId);
+		} catch (Exception e) {
+			return 0;
+		}
+	}
+	
+	@Override
 	@Transactional
 	public List<CommentImage> getCommentImages(int displayInfoId) {
 		List<CommentImage> list=comidao.commentImageList(displayInfoId);
 		return list;
 	}
-
+	
 	@Override
 	@Transactional
 	public List<ProductPrice> getPrices(int displayInfoId) {
