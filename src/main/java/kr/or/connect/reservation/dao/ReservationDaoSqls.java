@@ -24,7 +24,7 @@ public class ReservationDaoSqls {
 	//public static final String DETAIL_TEST="select ruc.id, ruc.product_id, ruc.reservation_info_id, ruc.score, ruc.comment, ruc.create_date, ruc.modify_date, ruci.id, ruci.reservation_info_id, ruci.reservation_user_comment_id, fi.id, fi.file_name, fi.save_file_name, fi.content_type, fi.delete_flag, fi.create_date, fi.modify_date from reservation_user_comment ruc left join reservation_user_comment_image ruci on ruci.reservation_user_comment_id=ruc.id left join file_info fi on fi.id=ruci.file_id where ruc.product_id= :displayInfoId";
 	public static final String DETAIL_RESERVATION_INFO="select ri.id, ri.reservation_name, ri.reservation_tel, ri.reservation_email, ri.reservation_date from reservation_info ri where ri.product_id= :displayInfoId";
 	public static final String DETAIL_PRICE="select pp.id, pp.product_id, pp.price_type_name, pp.price, pp.discount_rate, pp.create_date, pp.modify_date from product_price pp where pp.product_id= :displayInfoId";
-	public static final String DETAIL_ET_IMAGES="select fi.save_file_name from file_info fi left join product_image pi on pi.file_id=fi.id where type='et' and pi.product_id= :displayInfoId";
+	public static final String DETAIL_ET_IMAGES="select fi.save_file_name from file_info fi left join product_image pi on pi.file_id=fi.id where type='et' and pi.product_id= :displayInfoId limit 1";
 	public static final String DETAIL_ET_COUNT="select count(*) from file_info fi left join product_image pi on pi.file_id=fi.id where type='et' and pi.product_id= :displayInfoId";
 	
 }
