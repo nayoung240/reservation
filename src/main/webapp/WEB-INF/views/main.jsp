@@ -40,7 +40,7 @@
                         <div>
                             <div class="container_visual">
                                 <!-- [D] 이전,다음 버튼을 클릭할때마다 캐러셀 형태로 순환 됨 -->
-                                <ul class="visual_img">
+                                <ul class="visual_img" style="transition-duration: 1s; transform: translateX(0%);">
                                 	<c:forEach var="promList" items="${allPromList}">
 									<li class="item" style="background-image: url('${promList.saveFileName}');">
 								        <a href="#"> <span class="img_btm_border"></span> <span class="img_right_border"></span> <span class="img_bg_gra"></span>
@@ -126,19 +126,7 @@
         </div>
     </footer>
 
-    <script type="rv-template" id="promotionItem">
-    <li class="item" style="background-image: url(http://211.249.62.123/productImages/${productId}/${productImageId});">
-        <a href="#"> <span class="img_btm_border"></span> <span class="img_right_border"></span> <span class="img_bg_gra"></span>
-            <div class="event_txt">
-                <h4 class="event_txt_tit"></h4>
-                <p class="event_txt_adr"></p>
-                <p class="event_txt_dsc"></p>
-            </div>
-        </a>
-    </li>
-    </script>
     <script>
-    	var promItem=document.querySelector("#promotionItem");
     	var promUl=document.querySelector(".visual_img");
     
     	var n=0;
