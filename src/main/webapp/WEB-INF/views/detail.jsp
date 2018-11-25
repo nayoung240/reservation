@@ -37,12 +37,18 @@
                         <a href="./myreservation.html" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
                     </header>
                     <p id="detailId" style="display:none">${detailId}</p>
-                    <p id="etCount" style="display:none">${etCount}</p>
                     <div class="pagination">
                         <div class="bg_pagination"></div>
                         <div class="figure_pagination">
                             <span class="num">1</span>
-                            <span class="num off">/ <span>${etCount+1} </span></span>
+                            <c:choose>
+						        <c:when test="${etCount>=1}">
+						            <span class="num off">/ <span>2</span></span>
+						        </c:when>
+						        <c:otherwise>
+						            <span class="num off">/ <span>1</span></span>
+						        </c:otherwise>
+						    </c:choose>
                         </div>
                     </div>
                     <div class="group_visual">
@@ -51,7 +57,7 @@
                                 <ul class="visual_img detail_swipe" style="transition-duration: 1s;">
                                 </ul>
                             </div>
-                            <c:if test="${etCount>1}">
+                            <c:if test="${etCount>=1}">
                             <div class="prev">
                                 <div class="prev_inn">
                                     <a href="#" class="btn_prev" title="이전">
@@ -139,7 +145,7 @@
                         </div>
                         <p class="guide"> <i class="spr_book2 ico_bell"></i> <span>네이버 예약을 통해 실제 방문한 이용자가 남긴 평가입니다.</span> </p>
                     </div>
-                    <a class="btn_review_more" href="./review.html"> <span>예매자 한줄평 더보기</span> <i class="fn fn-forward1"></i> </a>
+                    <a class="btn_review_more" href="review?id=${detailId}"> <span>예매자 한줄평 더보기</span> <i class="fn fn-forward1"></i> </a>
                 </div>
                 <div class="section_info_tab">
                     <!-- [D] tab 선택 시 anchor에 active 추가 -->
@@ -261,9 +267,10 @@
 		detailUl.insertAdjacentHTML('beforeend',prodHTML);
 		detailUl.insertAdjacentHTML('beforeend',etHTML);
    }
-   
-   var detailId=parseInt(document.querySelector("#detailId").innerText);
-   window.onload=function(){
+	
+	var detailId=parseInt(document.querySelector("#detailId").innerText);
+	
+    window.onload=function(){
  		var oReq=new XMLHttpRequest();
 		oReq.addEventListener("load",function(){
 			var json=JSON.parse(this.responseText);
@@ -275,38 +282,40 @@
 	}
    </script>
    <script>
- 	var etcntAll=parseInt(document.querySelector("#etCount").innerText);
  	var etcnt=1;
  	var etMargin=0;
  	var promNum=document.querySelector(".num");
  	var leftBtn=document.querySelector(".btn_prev");
+ 	var lefticon=document.querySelector(".btn_prev i");
  	var rightBtn=document.querySelector(".btn_nxt");
+ 	var righticon=document.querySelector(".btn_nxt i");
  	
 	leftBtn.addEventListener("click",function(){
-		if(etcnt==1){
-			etcnt=etcntAll+1;
-			etMargin=(etcnt*100)-100;
-		}
-		else{
+		if(etcnt==2){
+ 			lefticon.classList.add("off"); 
+ 			righticon.classList.remove("off"); 
+ 			
 			etcnt--;
 			etMargin-=100;
+	
+			promNum.innerText=etcnt;
+			detailUl.style.marginLeft ="-"+etMargin+"%";
 		}
-		promNum.innerText=etcnt;
-		detailUl.style.marginLeft ="-"+etMargin+"%";
-	});
- 		
+	});	
+ 	
  	rightBtn.addEventListener("click", function(){
- 		if(etcnt==etcntAll+1){
- 			etcnt=1;
- 			etMargin=0;
- 		}
- 		else{
+ 		if(etcnt==1){
+ 			lefticon.classList.remove("off"); 
+ 			righticon.classList.add("off"); 
+ 			
  	 		etcnt++;
  	 		etMargin+=100;  
+ 	 		
+ 	 		promNum.innerText=etcnt;
+ 			detailUl.style.marginLeft ="-"+etMargin+"%";
  		}
- 		promNum.innerText=etcnt;
-		detailUl.style.marginLeft ="-"+etMargin+"%";
-   	});  
+ 		
+   	}); 
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
@@ -328,6 +337,18 @@
             } 
         });
     });
+    </script>
+    <script>
+    /*
+     * 리뷰 사진 없을 때
+     */
+    	var reviewArea=document.querySelectorAll(".review_area");
+    	for(var i=0, len=reviewArea.length; i<len; i++ ){
+    		if(!reviewArea[i].querySelector(".thumb_area")){
+    			reviewArea[i].classList.add("no_img");
+    			console.log('삭제');
+    		}
+    	}
     </script>
     <script>
     //탭전환
