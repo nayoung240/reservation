@@ -146,7 +146,7 @@
     </script>
     <script type="rv-template" id="itemList">
         <li class="item">
-            <a href="" class="item_book">
+            <a href="detail?id={id}" class="item_book">
                 <div class="item_preview">
                     <img alt="{description}" class="img_thumb" src="{saveFileName}">
                     <span class="img_border"></span>
@@ -169,14 +169,16 @@
 		
 		if(type=="all"){
 			for(var i=0; i<2; i++){
-				left+=template.replace("{description}",json.allProdList[i].description)
+				left+=template.replace("{id}",json.allProdList[i].id)
+					.replace("{description}",json.allProdList[i].description)
 					.replace("{saveFileName}",json.allProdList[i].saveFileName)
 					.replace("{description}",json.allProdList[i].description)
 					.replace("{placeName}",json.allProdList[i].placeName)
 					.replace("{content}",json.allProdList[i].content);
 			} 
 			for(var i=2; i<4; i++){
-				right+=template.replace("{description}",json.allProdList[i].description)
+				right+=template.replace("{id}",json.allProdList[i].id)
+				.replace("{description}",json.allProdList[i].description)
 				.replace("{saveFileName}",json.allProdList[i].saveFileName)
 				.replace("{description}",json.allProdList[i].description)
 				.replace("{placeName}",json.allProdList[i].placeName)
@@ -187,14 +189,16 @@
 		}
 		else if(type=="category"){
 			for(var i=0; i<2; i++){
-				left+=template.replace("{description}",json.cateProdList[i].description)
+				left+=template.replace("{id}",json.allProdList[i].id)
+					.replace("{description}",json.cateProdList[i].description)
 					.replace("{saveFileName}",json.cateProdList[i].saveFileName)
 					.replace("{description}",json.cateProdList[i].description)
 					.replace("{placeName}",json.cateProdList[i].placeName)
 					.replace("{content}",json.cateProdList[i].content);
 			} 
 			for(var i=2; i<4; i++){
-				right+=template.replace("{description}",json.cateProdList[i].description)
+				right+=template.replace("{id}",json.allProdList[i].id)
+				.replace("{description}",json.cateProdList[i].description)
 				.replace("{saveFileName}",json.cateProdList[i].saveFileName)
 				.replace("{description}",json.cateProdList[i].description)
 				.replace("{placeName}",json.cateProdList[i].placeName)
@@ -232,14 +236,16 @@
 			console.log("길이: "+length);
 			if(length!=0){ //2 1 1 / 3 2 1 / 4 2 2
 				if(length<=2){
-					left+=template.replace("{description}",json.allProdList[0].description)
+					left+=template.replace("{id}",json.allProdList[i].id)
+					.replace("{description}",json.allProdList[0].description)
 					.replace("{saveFileName}",json.allProdList[0].saveFileName)
 					.replace("{description}",json.allProdList[0].description)
 					.replace("{placeName}",json.allProdList[0].placeName)
 					.replace("{content}",json.allProdList[0].content);
 					
 					if(length==2){
-						right+=template.replace("{description}",json.allProdList[1].description)
+						right+=template.replace("{id}",json.allProdList[i].id)
+						.replace("{description}",json.allProdList[1].description)
 						.replace("{saveFileName}",json.allProdList[1].saveFileName)
 						.replace("{description}",json.allProdList[1].description)
 						.replace("{placeName}",json.allProdList[1].placeName)
@@ -248,14 +254,16 @@
 				}
 				else{
 					for(var i=0; i<length-2; i++){
-						left+=template.replace("{description}",json.allProdList[i].description)
+						left+=template.replace("{id}",json.allProdList[i].id)
+						.replace("{description}",json.allProdList[i].description)
 						.replace("{saveFileName}",json.allProdList[i].saveFileName)
 						.replace("{description}",json.allProdList[i].description)
 						.replace("{placeName}",json.allProdList[i].placeName)
 						.replace("{content}",json.allProdList[i].content);
 					} 
 					for(var i=2; i<length; i++){
-						right+=template.replace("{description}",json.allProdList[i].description)
+						right+=template.replace("{id}",json.allProdList[i].id)
+						.replace("{description}",json.allProdList[i].description)
 						.replace("{saveFileName}",json.allProdList[i].saveFileName)
 						.replace("{description}",json.allProdList[i].description)
 						.replace("{placeName}",json.allProdList[i].placeName)
@@ -273,14 +281,16 @@
 			
 			if(length!=0){ 
 				if(length<=2){
-					left+=template.replace("{description}",json.cateProdList[0].description)
+					left+=template.replace("{id}",json.allProdList[i].id)
+					.replace("{description}",json.cateProdList[0].description)
 					.replace("{saveFileName}",json.cateProdList[0].saveFileName)
 					.replace("{description}",json.cateProdList[0].description)
 					.replace("{placeName}",json.cateProdList[0].placeName)
 					.replace("{content}",json.cateProdList[0].content);
 					
 					if(length==2){
-						right+=template.replace("{description}",json.cateProdList[1].description)
+						right+=template.replace("{id}",json.allProdList[i].id)
+						.replace("{description}",json.cateProdList[1].description)
 						.replace("{saveFileName}",json.cateProdList[1].saveFileName)
 						.replace("{description}",json.cateProdList[1].description)
 						.replace("{placeName}",json.cateProdList[1].placeName)
@@ -289,14 +299,16 @@
 				}
 				else{
 					for(var i=0; i<length-2; i++){
-						left+=template.replace("{description}",json.cateProdList[i].description)
+						left+=template.replace("{id}",json.allProdList[i].id)
+							.replace("{description}",json.cateProdList[i].description)
 							.replace("{saveFileName}",json.cateProdList[i].saveFileName)
 							.replace("{description}",json.cateProdList[i].description)
 							.replace("{placeName}",json.cateProdList[i].placeName)
 							.replace("{content}",json.cateProdList[i].content);
 					} 
 					for(var i=2; i<length; i++){
-						right+=template.replace("{description}",json.cateProdList[i].description)
+						right+=template.replace("{id}",json.allProdList[i].id)
+						.replace("{description}",json.cateProdList[i].description)
 						.replace("{saveFileName}",json.cateProdList[i].saveFileName)
 						.replace("{description}",json.cateProdList[i].description)
 						.replace("{placeName}",json.cateProdList[i].placeName)
@@ -320,6 +332,11 @@
 		oReq.open("POST", url, true);
 		oReq.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		oReq.send(sendContent+"&start="+startNum);
+ 	}
+ 	function cnt(){
+   		var totalCnt=${allCnt};
+   		var cnt=totalCnt%4; 
+   		cnt = totalCnt % pageCnt > 0 ? cnt+1 : cnt; 
  	}
  	var startNum=0;
  	var btn=document.querySelector(".btn");
