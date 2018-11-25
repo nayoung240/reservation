@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>        
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -54,7 +55,10 @@
                                             <p class="review">${comm.comment}</p>
                                         </div>
                                         <div class="info_area">
-                                            <div class="review_info"> <span class="grade">${comm.score}</span> <span class="name">dbfl****</span> <span class="date">${comm.createDate} 방문</span> </div>
+                                            <div class="review_info"> 
+                                            <span class="grade">${comm.score}</span> 
+                                            <span class="name"> ${fn:substring(comm.reservationEmail,0,3)}***</span>
+                                            <span class="date">${comm.createDate} 방문</span> </div>
                                         </div>
                                     </div>
                                 </li>
