@@ -44,13 +44,14 @@ public class CommentDao {
 			@Override
 			public Comment mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Comment p = new Comment();
-				p.setId(rs.getInt(1));
-				p.setProductId(rs.getInt(2));
-				p.setReservationInfoId(rs.getInt(3));
-				p.setScore(rs.getFloat(4));
-				p.setComment(rs.getString(5));
-				p.setCreateDate(rs.getDate(6));
-				p.setModifyDate(rs.getDate(7));
+				p.setReservationEmail(rs.getString(1));
+				p.setId(rs.getInt(2));
+				p.setProductId(rs.getInt(3));
+				p.setReservationInfoId(rs.getInt(4));
+				p.setScore(rs.getFloat(5));
+				p.setComment(rs.getString(6));
+				p.setCreateDate(rs.getDate(7));
+				p.setModifyDate(rs.getDate(8));
 				return p;
 			}
 		});

@@ -3,6 +3,7 @@ package kr.or.connect.reservation.dto;
 import java.util.Date;
 
 public class Comment {
+	private String reservationEmail;
 	private int id;
 	private int productId;
 	private int reservationInfoId;
@@ -11,6 +12,12 @@ public class Comment {
 	private Date createDate;
 	private Date modifyDate;
 	
+	public String getReservationEmail() {
+		return reservationEmail;
+	}
+	public void setReservationEmail(String reservationEmail) {
+		this.reservationEmail = reservationEmail;
+	}
 	public int getId() {
 		return id;
 	}
@@ -55,9 +62,9 @@ public class Comment {
 	}
 	@Override
 	public String toString() {
-		return "Comment [id=" + id + ", productId=" + productId + ", reservationInfoId=" + reservationInfoId
-				+ ", score=" + score + ", comment=" + comment + ", createDate=" + createDate + ", modifyDate="
-				+ modifyDate + "]";
+		return "Comment [reservationEmail=" + reservationEmail + ", id=" + id + ", productId=" + productId
+				+ ", reservationInfoId=" + reservationInfoId + ", score=" + score + ", comment=" + comment
+				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + "]";
 	}
 	
 	
