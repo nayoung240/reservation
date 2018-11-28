@@ -28,12 +28,11 @@
                 <div class="review_header">
                     <div class="top_title gr">
                         <a href="detail?id=${detailId}" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
-                        <h2><a class="title" href="#">오디컴퍼니 주식회사</a></h2>
+                        <h2><a class="title" href="#">예매자 한줄평</a></h2>
                     </div>
                 </div>
                 <div class="section_review_list">
-                    <div class="review_box">
-                        <h3 class="title_h3">예매자 한줄평</h3>                                
+                    <div class="review_box">                             
                         <div class="short_review_area">
                             <div class="grade_area"> 
                                 <span class="graph_mask"> <em class="graph_value" style="width: ${scoreWidth}%; vertical-align: text-top;"></em> </span>
