@@ -35,7 +35,6 @@ public class ProductPriceDao {
 						.usingGeneratedKeyColumns("id");*/
 	}
 	
-	//pp.id, pp.product_id, pp.price_type_name, pp.price, pp.discount_rate, pp.create_date, pp.mofiy_date
 	public List<ProductPrice> priceList(Integer displayInfoId){
 		Map<String, Integer> params=new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
