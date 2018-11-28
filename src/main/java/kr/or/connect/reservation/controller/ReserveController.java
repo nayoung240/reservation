@@ -25,6 +25,7 @@ import kr.or.connect.reservation.dto.DisplayImage;
 import kr.or.connect.reservation.dto.Product;
 import kr.or.connect.reservation.dto.ProductDetail;
 import kr.or.connect.reservation.dto.ProductImage;
+import kr.or.connect.reservation.dto.ProductPrice;
 import kr.or.connect.reservation.dto.Promotion;
 import kr.or.connect.reservation.dto.PromotionImg;
 import kr.or.connect.reservation.service.DetailService;
@@ -42,21 +43,11 @@ public class ReserveController {
 			ModelMap mm) {
 		
 		List<ProductDetail> product=detaS.getDetailProduct(id);
-/*				String avgScore=detaS.getAvgScore(id);
-				int scoreWidth=(int)((100/5)*Float.parseFloat(avgScore));
-				int commentCnt=detaS.getCommentCnt(id);
-				List<Comment> comment=detaS.getComments(id);
-				List<CommentImage> reservationUserCommentImages=detaS.getCommentImages(id);
-				*/
+		List<ProductImage> productImage=detaS.getProductImage(id);
+
 		mm.addAttribute("detailId", id);
 		mm.addAttribute("product", product); 
-				
-				/*
-				mm.addAttribute("avgScore", avgScore);
-				mm.addAttribute("scoreWidth", scoreWidth);
-				mm.addAttribute("commentCnt", commentCnt);
-				mm.addAttribute("comment", comment);
-				mm.addAttribute("commentImages", reservationUserCommentImages);*/
+		mm.addAttribute("productImage", productImage);	
 		
 		return "reserve";
 	}

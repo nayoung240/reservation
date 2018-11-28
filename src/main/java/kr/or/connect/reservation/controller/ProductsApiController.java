@@ -27,8 +27,6 @@ import kr.or.connect.reservation.service.MainService;
 public class ProductsApiController {
 	@Autowired
 	MainService mainS;
-	@Autowired
-	DetailService detS;
 	
 	@RequestMapping(value="/products" , method = {RequestMethod.GET, RequestMethod.POST})
 	public Map<String, Object> productsMainList(@RequestParam(name="categoryId", required=false, defaultValue="0") int categoryId,
@@ -67,24 +65,5 @@ public class ProductsApiController {
 		return map;
 	}
 	
-	@RequestMapping(value="/api/dproducts/{displayInfoId}" , method = {RequestMethod.GET})
-	public Map<String, Object> detailProductsList(@PathVariable(name="displayInfoId") int displayInfoId) {
-		
-		List<ProductDetail> product=detS.getDetailProduct(displayInfoId);
-		List<ProductImage> productImages=detS.getProductImage(displayInfoId);
-		List<DisplayImage> displayImages=detS.getDisplayImage(displayInfoId);
-		List<Comment> comment=detS.getComments(displayInfoId);
-		List<CommentImage> reservationUserCommentImages=detS.getCommentImages(displayInfoId);
-		List<ProductPrice> productPrices=detS.getPrices(displayInfoId);
-		
-		Map<String, Object> map = new HashMap<>();
-		map.put("product", product);
-		map.put("productImages", productImages);
-		map.put("displayImages", displayImages);
-		map.put("comment", comment);
-		map.put("reservationUserCommentImages", reservationUserCommentImages);
-		map.put("avgScore", 3.0);
-		map.put("productPrices", productPrices);
-		return map;
-	}
+
 }
